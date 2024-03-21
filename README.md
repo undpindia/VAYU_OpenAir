@@ -5,7 +5,7 @@ This joint initiative by UNDP, GIZ, Govt, University of Nottingham, DA, D-Coop a
 
 Our endeavor is to prototype 'Open Digital Stack on Air Pollution' that steers collective action across a wide range of stakeholders to combat air pollution. We are building a generalizable and scalable open source model that can be adopted by several cities across the world.
 
-###Key Data Science Team Members
+## Key Data Science Team Members
 1. Swetha Kolluri, Head of Experimentation, UNDP India
 2. Shubham Tandon, Program Officer, UNDP India
 3. Parvathy Krishnan, Data Science Lead, UNDP India
