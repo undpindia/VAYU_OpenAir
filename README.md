@@ -1,5 +1,5 @@
-# VAYU_OpenAir
-VAYU_OpenAir is a public repository of open software, open algorithms and open data collected on air pollution through hyperlocal mapping of air pollution in two cities - Patna and Gurgaon. 
+# VAYU - OpenAir
+VAYU - OpenAir is a public repository of open software, open algorithms and open data collected on air pollution through hyperlocal mapping of air pollution in two cities - Patna and Gurgaon. 
 
 This joint initiative by UNDP, GIZ, Govt, University of Nottingham, DA, D-Coop and a large number of citizen scientists in India. With open innovation framework, this initiative aims to model an 'Open Digital Stack on Air Pollution' for Indian cities. This initiative leaverages on open source softwares, crowdsources open data, IoT sensors for field data collection, and AI/ML for modeling purposes.
 
