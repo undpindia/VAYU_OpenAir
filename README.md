@@ -11,6 +11,8 @@ Our endeavor is to prototype 'Open Digital Stack on Air Pollution' that steers c
 3. [Parvathy Krishnan](https://www.linkedin.com/in/parvathykrishnank/), Data Science Lead, UNDP India
 4. [Renoy Girindran](https://www.linkedin.com/in/dr-renoy-girindran-phd-uk-1ab27a4a/), University of Nottingham
 5. [Arun Kumar Yadav](https://www.linkedin.com/in/arun-kumar-yadav-60107a98/), Project Coordinator, UNDP India
-6. [Avinash Kumar](https://www.linkedin.com/in/avinash-kumar-59527879/), Programme Officer (Climate & Resource), Development Alternatives
+6. [Ambarish Narayanan](https://www.linkedin.com/in/ambarishnarayanan/), CIO, mistEO
+7. [Samuel John](https://www.linkedin.com/in/samuel-john-misteo/), Founder and CEO, mistEO
+8. [Avinash Kumar](https://www.linkedin.com/in/avinash-kumar-59527879/), Programme Officer (Climate & Resource), Development Alternatives
    
 
