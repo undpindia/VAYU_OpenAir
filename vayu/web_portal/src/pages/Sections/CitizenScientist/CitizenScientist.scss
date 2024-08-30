@@ -1,0 +1,53 @@
+.image-container {
+  margin-top: 15rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding: 10px;
+  justify-content: start;
+  overflow: hidden; /* Ensure no overflow of images */
+  align-items: center; /* Align items to the start of the container */
+}
+
+.image-container img {
+  width: calc(34% - 10px); /* Adjust width to fit 4 images per row with gap */
+  height: 200px;
+  border-radius: 8px;
+  object-fit: cover;
+  //   transition: transform 0.5s ease, z-index 0s; /* Smooth transform on hover */
+  //   z-index: 1; /* Default z-index */
+  //   position: relative; /* Ensure proper positioning for hover effect */
+}
+
+// .image-container img:hover {
+//   transform: scale(1.5); /* Enlarge image on hover */
+//   z-index: 10; /* Bring image to the front */
+//   overflow: visible; /* Allow image to extend beyond container */
+//   border-radius: 8px;
+// }
+
+@media (max-width: 768px) {
+  .image-container {
+    margin-top: 0;
+    padding: 0;
+  }
+
+  .image-container img {
+    width: calc(
+      50% - 10px
+    ); /* Adjust for 2 images per row on smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .image-container {
+    margin-top: 0;
+    padding: 0;
+  }
+
+  .image-container img {
+    width: calc(
+      100% - 10px
+    ); /* Adjust for 1 image per row on very small screens */
+  }
+}

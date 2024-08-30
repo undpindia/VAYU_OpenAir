@@ -1,0 +1,16 @@
+.app {
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+
+  @media screen and (max-width: 1024px) {
+    box-sizing: border-box;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    -ms-overflow-style: none; /* IE and Edge */
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}
