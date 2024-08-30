@@ -1,0 +1,26 @@
+.rdp-selected .rdp-day_button {
+    border: solid 2px #456841;
+}
+
+.rdp-today:not(.rdp-outside) {
+    color: #456841;
+}
+
+.rdp-weekday {
+    font-size: 16px;
+}
+
+.rdp-chevron {
+    fill: #456841 !important;
+}
+
+.space-y-4{
+    margin-left: 0 !important;
+}
+.rdp-month_caption {
+   display: grid; 
+}
+.rdp-nav {
+    margin-right: 10px;
+    margin-top: 12px;
+}
