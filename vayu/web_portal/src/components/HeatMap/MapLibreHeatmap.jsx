@@ -578,7 +578,7 @@ export default function MapLibreHeatmap({
                 'line-cap': 'round',
               },
               paint: {
-                'line-color': '#888',
+                'line-color': '#344E41',
                 'line-width': 1,
                 // 'line-dasharray': [1, 2]
               },
