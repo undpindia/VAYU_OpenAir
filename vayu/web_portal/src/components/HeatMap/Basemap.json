@@ -13,7 +13,7 @@
             "source": "osm",
             "source-layer": "earth",
             "paint": {
-                "fill-color": "#ffffff"
+                "fill-color": "#E9EDC9"
             }
         },
         {
@@ -354,7 +354,7 @@
             "source": "osm",
             "source-layer": "water",
             "paint": {
-                "fill-color": "#dcdcdc"
+                "fill-color": "#A3B18A"
             }
         },
         {
@@ -372,7 +372,7 @@
                 ]
             ],
             "paint": {
-                "line-color": "#dcdcdc",
+                "line-color": "#A3B18A",
                 "line-width": 0.5
             }
         },
@@ -391,7 +391,7 @@
                 ]
             ],
             "paint": {
-                "line-color": "#dcdcdc",
+                "line-color": "#A3B18A",
                 "line-width": [
                     "interpolate",
                     [
@@ -464,7 +464,7 @@
                 ]
             ],
             "paint": {
-                "line-color": "#d6d6d6",
+                "line-color": "#CCD5AE",
                 "line-gap-width": [
                     "interpolate",
                     [
@@ -790,7 +790,7 @@
                 ]
             ],
             "paint": {
-                "line-color": "#d6d6d6",
+                "line-color": "#CCD5AE",
                 "line-dasharray": [
                     4.5,
                     0.5
@@ -830,7 +830,7 @@
                 ]
             ],
             "paint": {
-                "line-color": "#d6d6d6",
+                "line-color": "#CCD5AE",
                 "line-width": [
                     "interpolate",
                     [
@@ -870,7 +870,7 @@
                 ]
             ],
             "paint": {
-                "line-color": "#d6d6d6",
+                "line-color": "#CCD5AE",
                 "line-width": [
                     "interpolate",
                     [
@@ -908,7 +908,7 @@
                 ]
             ],
             "paint": {
-                "line-color": "#d6d6d6",
+                "line-color": "#CCD5AE",
                 "line-width": [
                     "interpolate",
                     [
@@ -948,7 +948,7 @@
                 ]
             ],
             "paint": {
-                "line-color": "#d6d6d6",
+                "line-color": "#CCD5AE",
                 "line-width": [
                     "interpolate",
                     [
@@ -993,7 +993,7 @@
                 ]
             ],
             "paint": {
-                "line-color": "#d6d6d6",
+                "line-color": "#CCD5AE",
                 "line-width": [
                     "interpolate",
                     [
@@ -1411,7 +1411,7 @@
                 ]
             ],
             "paint": {
-                "line-color": "#f5f5f5",
+                "line-color": "#CCD5AE",
                 "line-dasharray": [
                     3,
                     1
@@ -1821,7 +1821,7 @@
                     0.75
                 ],
                 "line-opacity": 0.5,
-                "line-color": "#d6d6d6",
+                "line-color": "#CCD5AE",
                 "line-width": [
                     "interpolate",
                     [
