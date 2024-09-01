@@ -1,11 +1,11 @@
-import PmIcon from '../assets/images/common/pm-icon.svg';
-import Pm10Icon from '../assets/images/common/pm-10-icon.svg';
-import No2Icon from '../assets/images/common/no2-icon.svg';
-import CoIcon from '../assets/images/common/co-icon.svg';
-import Co2Icon from '../assets/images/common/co2-icon.svg';
-import Ch4Icon from '../assets/images/common/ch4-icon.svg';
-import TempIcon from '../assets/images/common/temp.svg';
-import RhIcon from '../assets/images/common/rh-icon.svg';
+import PmIcon from '../assets/images/icons/pm25.svg';
+import Pm10Icon from '../assets/images/icons/pm10.svg';
+import No2Icon from '../assets/images/icons/no2.svg';
+import CoIcon from '../assets/images/icons/co.svg';
+import Co2Icon from '../assets/images/icons/co2.svg';
+import Ch4Icon from '../assets/images/icons/ch4.svg';
+import TempIcon from '../assets/images/icons/temp.svg';
+import RhIcon from '../assets/images/icons/rh.svg';
 
 import ChartIcon from '../assets/images/common/chart-placeholder.svg';
 
