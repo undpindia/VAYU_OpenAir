@@ -104,6 +104,7 @@ export default function MapLibreHeatmap({
   isDensityVisible,
   isRecordVisible,
   isStaticVisible,
+  isSensorClose
 }) {
   const [filter, setFilter] = useState(['all']);
   const [filterPointData, setFilterPointData] = useState(['all']);
@@ -656,8 +657,8 @@ export default function MapLibreHeatmap({
                 src={MarkerRed}
                 alt="Marker"
                 style={{
-                  width: selectedMarker === point ? '30px' : '20px', // Increase size if selected
-                  height: selectedMarker === point ? '30px' : '20px',
+                  width: selectedMarker === point && !isSensorClose ? '30px' : '20px', // Adjust size based on conditions
+                  height: selectedMarker === point && !isSensorClose ? '30px' : '20px',
                   transition: 'width 0.2s ease, height 0.2s ease', // Smooth transition
                   cursor: 'pointer',
                 }}
