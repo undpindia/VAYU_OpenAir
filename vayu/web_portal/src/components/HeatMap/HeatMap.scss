@@ -73,6 +73,15 @@
     text-align: left;
     color: #000000;
   }
+  .device-close-btn {
+    display: inline-block;
+    width: 20px;
+    line-height: 19.68px;
+    position: relative;
+    top: -2px;
+    cursor: pointer;
+    margin-left: 5px;
+  }
 }
 .static-sensor-card {
   z-index: 1;
