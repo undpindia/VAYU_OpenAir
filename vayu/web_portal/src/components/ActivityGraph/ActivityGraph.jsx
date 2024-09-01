@@ -3,28 +3,23 @@ import 'react-calendar-heatmap/dist/styles.css';
 import './ActivityGraph.scss';
 import { Fragment, useState, useMemo } from 'react';
 
-// Function to get the color class based on the count
 const colorScaleSummary = (number) => {
-  switch (true) {
-    case number > 1 && number <= 999:
-      return 'color-scale-0';
-    case number >= 1000 && number <= 5000:
-      return 'color-scale-1';
-    case number >= 5001 && number <= 10000:
-      return 'color-scale-2';
-    case number >= 10001 && number <= 15000:
-      return 'color-scale-3';
-    case number >= 15001 && number <= 20000:
-      return 'color-scale-4';
-    case number >= 20001 && number <= 25000:
-      return 'color-scale-5';
-    case number >= 25001 && number <= 30000:
-      return 'color-scale-6';
-    case number > 30000:
-      return 'color-scale-7';
-    default:
-      return 'color-empty';
-  }
+  if (number <= 500) return 'color-scale-0';
+  if (number <= 1000) return 'color-scale-1';
+  if (number <= 1500) return 'color-scale-2';
+  if (number <= 2000) return 'color-scale-3';
+  if (number <= 2500) return 'color-scale-4';
+  if (number <= 3000) return 'color-scale-5';
+  if (number <= 3500) return 'color-scale-6';
+  if (number <= 4000) return 'color-scale-7';
+  if (number <= 4500) return 'color-scale-8';
+  if (number <= 5000) return 'color-scale-9';
+  if (number <= 5500) return 'color-scale-10';
+  if (number <= 6000) return 'color-scale-11';
+  if (number <= 6500) return 'color-scale-12';
+  if (number <= 7000) return 'color-scale-13';
+  if (number <= 7500) return 'color-scale-14';
+  return 'color-scale-15'; // Darkest shade for numbers above 7500
 };
 
 const ActivityGraph = ({ data }) => {
@@ -42,29 +37,45 @@ const ActivityGraph = ({ data }) => {
   };
 
   const ranges = [
-    { min: 0, max: 1000, colorClass: 'color-scale-0' },
-    { min: 1000, max: 5000, colorClass: 'color-scale-1' },
-    { min: 5001, max: 10000, colorClass: 'color-scale-2' },
-    { min: 10001, max: 15000, colorClass: 'color-scale-3' },
-    { min: 15001, max: 20000, colorClass: 'color-scale-4' },
-    { min: 20001, max: 25000, colorClass: 'color-scale-5' },
-    { min: 25001, max: 30000, colorClass: 'color-scale-6' },
-    { min: 30001, max: Infinity, colorClass: 'color-scale-7' },
+    { min: 0, max: 500, colorClass: 'color-scale-0' },
+    { min: 501, max: 1000, colorClass: 'color-scale-1' },
+    { min: 1001, max: 1500, colorClass: 'color-scale-2' },
+    { min: 1501, max: 2000, colorClass: 'color-scale-3' },
+    { min: 2001, max: 2500, colorClass: 'color-scale-4' },
+    { min: 2501, max: 3000, colorClass: 'color-scale-5' },
+    { min: 3001, max: 3500, colorClass: 'color-scale-6' },
+    { min: 3501, max: 4000, colorClass: 'color-scale-7' },
+    { min: 4001, max: 4500, colorClass: 'color-scale-8' },
+    { min: 4501, max: 5000, colorClass: 'color-scale-9' },
+    { min: 5001, max: 5500, colorClass: 'color-scale-10' },
+    { min: 5501, max: 6000, colorClass: 'color-scale-11' },
+    { min: 6001, max: 6500, colorClass: 'color-scale-12' },
+    { min: 6501, max: 7000, colorClass: 'color-scale-13' },
+    { min: 7001, max: 7500, colorClass: 'color-scale-14' },
+    { min: 7501, max: Infinity, colorClass: 'color-scale-15' },
   ];
 
   const getColor = (colorClass) => {
     const colorMap = {
-      'color-scale-0': '#dcf2b6',
-      'color-scale-1': '#b8f357',
-      'color-scale-2': '#42d40f',
-      'color-scale-3': '#42b919',
-      'color-scale-4': '#0ca00c',
-      'color-scale-5': '#058505',
-      'color-scale-6': '#036603',
-      'color-scale-7': '#011001',
-      'color-empty': '#d7eed2',
+      'color-scale-0': '#D7EED2', // 0 to 500
+      'color-scale-1': '#D1ECC8', // 501 to 1000
+      'color-scale-2': '#CBEAC5', // 1001 to 1500
+      'color-scale-3': '#B5E1B0', // 1501 to 2000
+      'color-scale-4': '#AEDDA9', // 2001 to 2500
+      'color-scale-5': '#93CF91', // 2501 to 3000
+      'color-scale-6': '#75BD78', // 3001 to 3500
+      'color-scale-7': '#80C481', // 3501 to 4000
+      'color-scale-8': '#6CB771', // 4001 to 4500
+      'color-scale-9': '#61B068', // 4501 to 5000
+      'color-scale-10': '#59AA62', // 5001 to 5500
+      'color-scale-11': '#4FA25A', // 5501 to 6000
+      'color-scale-12': '#3D944E', // 6001 to 6500
+      'color-scale-13': '#2D8643', // 6501 to 7000
+      'color-scale-14': '#1A6F33', // 7001 to 7500
+      'color-scale-15': '#1A6F33', // 7501 to Infinity
+      'color-empty': '#ECF2EA', // Default or empty
     };
-    return colorMap[colorClass] || '#d7eed2';
+    return colorMap[colorClass] || '#ECF2EA';
   };
 
   // Get the active ranges based on the actual data
@@ -80,6 +91,7 @@ const ActivityGraph = ({ data }) => {
         (range.min <= max && range.max >= min) ||
         (range.min >= min && range.max <= max)
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedData]);
 
   const [tooltip, setTooltip] = useState({
@@ -99,7 +111,7 @@ const ActivityGraph = ({ data }) => {
         visible: true,
         x: tooltipX,
         y: tooltipY,
-        content: `${value.date} has count: ${value.count}`,
+        content: `Date: ${value.date} | Count: ${value.count}`,
       });
     } else {
       const rect = event.target.getBoundingClientRect();
@@ -123,26 +135,36 @@ const ActivityGraph = ({ data }) => {
     if (!selectedData || selectedData.length === 0)
       return { startDate: '', endDate: '' };
 
-    const { data } = selectedData[0];
-    const months = Object.keys(data);
+    const months = Object.keys(selectedData.data);
 
-    if (months.length === 0) return { startDate: '', endDate: '' };
-
+    // Determine the first and last months
     const firstMonth = months[0];
     const lastMonth = months[months.length - 1];
 
-    const firstDate = new Date(data[firstMonth][0].date);
-    const lastDate = new Date(data[lastMonth][data[lastMonth].length - 1].date);
+    // Define the year
+    const year = selectedData.year;
 
-    const options = { year: 'numeric', month: 'short' };
+    // Get the first date of the first month
+    const startDate = new Date(`${year}-${firstMonth}-01`);
+
+    // Get the last date of the last month
+    const endDate = new Date(`${year}-${lastMonth}-01`);
+    endDate.setMonth(endDate.getMonth() + 1);
+    endDate.setDate(0); // Set to the last day of the previous month
+
+    // Function to format the date as "01 Jun 2024"
+    const formatDate = (date) => {
+      const options = { day: '2-digit', month: 'short', year: 'numeric' };
+      return date.toLocaleDateString('en-GB', options);
+    };
 
     return {
-      startDate: firstDate.toLocaleDateString('en-US', options),
-      endDate: lastDate.toLocaleDateString('en-US', options),
+      startDate: formatDate(startDate), // "01 Jun 2024"
+      endDate: formatDate(endDate), // "31 Aug 2024"
     };
   };
 
-  const { startDate, endDate } = getDateRange(data);
+  const { startDate, endDate } = getDateRange(selectedData);
 
   return (
     <Fragment>
@@ -163,7 +185,7 @@ const ActivityGraph = ({ data }) => {
                   endDate={endDate}
                   values={monthData}
                   onClick={(value) => console.log(value)}
-                  gutterSize={4}
+                  gutterSize={3}
                   classForValue={(value) => {
                     if (!value) {
                       return 'color-empty';
@@ -179,7 +201,7 @@ const ActivityGraph = ({ data }) => {
                   <div
                     className="absolute z-10 px-3 py-2 bg-gray-700 text-white text-sm rounded"
                     style={{
-                      top: tooltip.y - 140, // Adjust to position above the tile
+                      top: tooltip.y - 160, // Adjust to position above the tile
                       left: tooltip.x,
                       transform: 'translateX(-50%)',
                     }}
@@ -196,14 +218,19 @@ const ActivityGraph = ({ data }) => {
         })}
       </div>
       <div className="flex flex-col items-center relative">
-        <div className="mb-2 text-center text-lg font-normal">
+        {/* <div className="mb-2 text-center text-lg font-normal">
           Data Point Trends
-        </div>
+        </div> */}
         <div className="relative flex items-center w-[50%] h-4 border border-gray-300 rounded-sm">
           <div
             className="w-full h-full rounded-sm"
+            // style={{
+            //   background: `linear-gradient(to right, ${activeRanges
+            //     .map((range) => `${getColor(range.colorClass)}`)
+            //     .join(', ')})`,
+            // }}
             style={{
-              background: `linear-gradient(to right, ${activeRanges
+              background: `linear-gradient(to right, #ECF2EA, ${activeRanges
                 .map((range) => `${getColor(range.colorClass)}`)
                 .join(', ')})`,
             }}
