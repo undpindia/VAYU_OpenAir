@@ -51,6 +51,7 @@ import Tippy from '@tippyjs/react';
 import EyeShow from '../../assets/images/icons/eye-show.svg';
 import EyeHide from '../../assets/images/icons/eye-hide.svg';
 import MarkerGreen from '../../assets/images/icons/marker-green.svg';
+import Close from '../../assets/images/icons/close.svg';
 
 const Dashboard = () => {
   const isInitialLoad = useRef(true);
@@ -97,6 +98,7 @@ const Dashboard = () => {
   const [isRecordVisible, setIsRecordVisible] = useState(true);
   const [isStaticVisible, setIsStaticVisible] = useState(true);
   const [months, setMonths] = useState([]);
+  const [isSensorClose, setIsSensorClose] = useState(false);
 
   // const [formValuesError, setFormValuesError] = useState('');
 
@@ -221,6 +223,22 @@ const Dashboard = () => {
   const handleZoomToBounds = () => {
     setZoom((prev) => !prev);
   };
+
+  const checkSensor = () => {
+    setIsSensorClose(true);
+    if (formValues.device_type === 'static' && formValues.device_id !== 'all') {
+      setFormValues((prevValues) => ({
+        ...prevValues,
+        device_id: 'all',
+      }));
+    }
+    setTimeout(() => {
+      refetchActivityData();
+      refetchTrendData();
+      refetchTrendGraphData();
+    }, 100);
+  };
+
   // Handle form submit
   const handleSubmit = async () => {
     // e.preventDefault();
@@ -381,6 +399,7 @@ const Dashboard = () => {
 
   const handleMarkerClick = (point) => {
     // console.log('Marker clicked in Dashboard:', point.device_id);
+    setIsSensorClose(false);
     setPointData(point.device_id);
     setFormValues((prevValues) => ({
       ...prevValues,
@@ -685,6 +704,7 @@ const Dashboard = () => {
             isDensityVisible={isDensityVisible}
             isRecordVisible={isRecordVisible}
             isStaticVisible={isStaticVisible}
+            isSensorClose={isSensorClose}
           />
           <div className="relative">
             {selectedSensorType === 'static' ? (
@@ -788,10 +808,11 @@ const Dashboard = () => {
                   <span className="label">Data Points: </span>
                   <span>{countDevice.data_count}</span>
                 </div>
-                {pointData && formValues.device_type === 'static' && (
+                {pointData && !isSensorClose && formValues.device_type === 'static' && (
                   <div className="device-data-card">
                     <span className="label">Sensor name: </span>
                     <span>{pointData}</span>
+                    <span onClick={checkSensor}> <img src={Close} className="device-close-btn"/></span>
                   </div>
                 )}
               </div>
