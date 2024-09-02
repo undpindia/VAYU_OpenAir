@@ -1193,13 +1193,11 @@
  * 1. show heat map when sensor type is dynamic
  */
 
-
-
-import ActivityGraph from "@/components/ActivityGraph/ActivityGraph";
-import DataTrendCard from "@/components/DataTrendCard/DataTrendCard";
-import { Button } from "@/components/ui/button";
-import { DatePicker } from "@/components/ui/date-picker";
-import { Label } from "@/components/ui/label";
+import ActivityGraph from '@/components/ActivityGraph/ActivityGraph';
+import DataTrendCard from '@/components/DataTrendCard/DataTrendCard';
+import { Button } from '@/components/ui/button';
+import { DatePicker } from '@/components/ui/date-picker';
+import { Label } from '@/components/ui/label';
 import {
   Select,
   SelectContent,
@@ -1207,10 +1205,10 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { useEffect, useRef, useState } from "react";
-import MarkerRed from "../../assets/images/icons/marker-red.png";
-import Home from "../../assets/images/icons/home.svg";
+} from '@/components/ui/select';
+import { useEffect, useRef, useState } from 'react';
+import MarkerRed from '../../assets/images/icons/marker-red.png';
+import Home from '../../assets/images/icons/home.svg';
 import {
   getActivityData,
   getTrendData,
@@ -1218,15 +1216,15 @@ import {
   getDeviceCount,
   dataDownload,
   getMonth,
-} from "@/api/ApiService";
-import { useMutation, useQuery } from "react-query";
-import MapLibreHeatmap from "@/components/HeatMap/MapLibreHeatmap";
-import { Skeleton } from "@/components/ui/skeleton";
+} from '@/api/ApiService';
+import { useMutation, useQuery } from 'react-query';
+import MapLibreHeatmap from '@/components/HeatMap/MapLibreHeatmap';
+import { Skeleton } from '@/components/ui/skeleton';
 import {
   convertTrendDataResponse,
   processTrendGraphApiResponse,
   transformActivityDataResponse,
-} from "@/utils/conversionFunctions";
+} from '@/utils/conversionFunctions';
 import {
   Dialog,
   DialogContent,
@@ -1235,23 +1233,23 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { dateWithOrdinal, forecastDate } from "@/utils/dateUtils";
-import { ReloadIcon } from "@radix-ui/react-icons";
-import CustomTooltip from "@/components/CustomTooltip/CustomTooltip";
-import Footer from "@/components/Footer/Footer";
+} from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { dateWithOrdinal, forecastDate } from '@/utils/dateUtils';
+import { ReloadIcon } from '@radix-ui/react-icons';
+import CustomTooltip from '@/components/CustomTooltip/CustomTooltip';
+import Footer from '@/components/Footer/Footer';
 
-import "./Dashboard.scss";
-import toast, { Toaster } from "react-hot-toast";
-import Tippy from "@tippyjs/react";
-import EyeShow from "../../assets/images/icons/eye-show.svg";
-import EyeHide from "../../assets/images/icons/eye-hide.svg";
-import MarkerGreen from "../../assets/images/icons/marker-green.svg";
-import Close from "../../assets/images/icons/close.svg";
-import image from "../../assets/images/common/image-popup.png";
-import Undp from "../../assets/images/partners/undp.svg";
-import Vayu from "../../assets/images/partners/vayu-white.svg";
+import './Dashboard.scss';
+import toast, { Toaster } from 'react-hot-toast';
+import Tippy from '@tippyjs/react';
+import EyeShow from '../../assets/images/icons/eye-show.svg';
+import EyeHide from '../../assets/images/icons/eye-hide.svg';
+import MarkerGreen from '../../assets/images/icons/marker-green.svg';
+import Close from '../../assets/images/icons/close.svg';
+import image from '../../assets/images/common/image-popup.png';
+import Undp from '../../assets/images/partners/undp.svg';
+import Vayu from '../../assets/images/partners/vayu-white.svg';
 
 const Dashboard = () => {
   const isInitialLoad = useRef(true);
@@ -1259,23 +1257,23 @@ const Dashboard = () => {
   const previousday = new Date(today);
   previousday.setDate(today.getDate() - 1);
   const [formValues, setFormValues] = useState({
-    city: "patna",
-    device_type: "dynamic", // Fixed value
-    from_date: "2024-06-01", // Fixed value
+    city: 'patna',
+    device_type: 'dynamic', // Fixed value
+    from_date: '2024-06-01', // Fixed value
     to_date: forecastDate(previousday), // Current date in YYYY-MM-DD format
-    device_id: "all", // Empty or dynamic as needed
+    device_id: 'all', // Empty or dynamic as needed
   });
   const [formDownload, setFormDownload] = useState({
-    name: "",
-    email: "",
-    usage_type: "",
-    purpose: "",
-    city: "",
-    device_type: "",
+    name: '',
+    email: '',
+    usage_type: '',
+    purpose: '',
+    city: '',
+    device_type: '',
   });
   const [formDownloadMonths, setFormDownloadMonths] = useState({
-    from_month: "",
-    year: "",
+    from_month: '',
+    year: '',
   });
   const queryParams = {
     from_date: formValues.from_date,
@@ -1288,11 +1286,11 @@ const Dashboard = () => {
   const [trendGraphDataPoints, setTrendGraphDataPoints] = useState([]);
   const [updateMap, setUpdateMap] = useState(false);
   const [pointData, setPointData] = useState(false);
-  const [selectedSensorType, setSelectedSensorType] = useState("dynamic");
-  const [emailError, setEmailError] = useState("");
+  const [selectedSensorType, setSelectedSensorType] = useState('dynamic');
+  const [emailError, setEmailError] = useState('');
   const [errors, setErrors] = useState({});
   const [currentStep, setCurrentStep] = useState(1);
-  const [countDevice, setCountDevice] = useState("");
+  const [countDevice, setCountDevice] = useState('');
   const [zoom, setZoom] = useState(false);
   const [isDensityVisible, setIsDensityVisible] = useState(true);
   const [isRecordVisible, setIsRecordVisible] = useState(true);
@@ -1326,14 +1324,14 @@ const Dashboard = () => {
       // Set the ref to false after the initial load
       isInitialLoad.current = false;
 
-      console.log("zoom, emailError", zoom, emailError);
+      console.log('zoom, emailError', zoom, emailError);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // UseQuery for initial data load (page load only)
   const { refetch: refetchCountData, isLoading: isCountLoading } = useQuery(
-    ["countData"],
+    ['countData'],
     () => fetchCountData(queryParams),
     {
       enabled: false, // Disable automatic query on mount
@@ -1348,7 +1346,7 @@ const Dashboard = () => {
     refetch: refetchActivityData,
     isLoading: isActivityDataLoading,
     isRefetching: isActivityDataRefetching,
-  } = useQuery(["activityPointsData"], () => fetchActivityData(formValues), {
+  } = useQuery(['activityPointsData'], () => fetchActivityData(formValues), {
     enabled: false, // Disable automatic query on mount
     onSuccess: (data) => {
       if (data.data.data.length > 0) {
@@ -1361,7 +1359,7 @@ const Dashboard = () => {
     refetch: refetchTrendData,
     isLoading: isDataTrendLoading,
     isRefetching: isDataTrendRefetching,
-  } = useQuery(["trendPointsData"], () => fetchTrendData(formValues), {
+  } = useQuery(['trendPointsData'], () => fetchTrendData(formValues), {
     enabled: false, // Disable automatic query on mount
     onSuccess: (data) => {
       if (data.status === 200 && data.data.success === true) {
@@ -1372,7 +1370,7 @@ const Dashboard = () => {
   });
 
   const { refetch: refetchTrendGraphData, isLoading: isDataTrendGraphLoading } =
-    useQuery(["trendGraphPointsData"], () => fetchTrendGraphData(formValues), {
+    useQuery(['trendGraphPointsData'], () => fetchTrendGraphData(formValues), {
       enabled: false, // Disable automatic query on mount
       onSuccess: (data) => {
         if (data.status === 200 && data.data.success === true) {
@@ -1426,10 +1424,10 @@ const Dashboard = () => {
 
   const checkSensor = () => {
     setIsSensorClose(true);
-    if (formValues.device_type === "static" && formValues.device_id !== "all") {
+    if (formValues.device_type === 'static' && formValues.device_id !== 'all') {
       setFormValues((prevValues) => ({
         ...prevValues,
-        device_id: "all",
+        device_id: 'all',
       }));
     }
     setTimeout(() => {
@@ -1495,7 +1493,7 @@ const Dashboard = () => {
         setMonths(formattedMonths);
       }
     } catch (error) {
-      console.error("Error fetching months", error);
+      console.error('Error fetching months', error);
     }
   };
 
@@ -1506,13 +1504,13 @@ const Dashboard = () => {
       if (response.data.code === 200) {
         const fetchurl = await fetch(response.data.data);
         const text = await fetchurl.text();
-        if (text.includes("BlobNotFound")) {
-          toast.error("No Data Found");
+        if (text.includes('BlobNotFound')) {
+          toast.error('No Data Found');
           setIsDownload(false);
         } else {
-          const link = document.createElement("a");
+          const link = document.createElement('a');
           link.href = response.data.data;
-          link.target = "_blank";
+          link.target = '_blank';
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);
@@ -1523,21 +1521,21 @@ const Dashboard = () => {
           setCurrentStep(1);
         }
       } else {
-        console.error("Download failed:", response.message);
+        console.error('Download failed:', response.message);
       }
     } catch (error) {
-      console.error("Error downloading data", error);
+      console.error('Error downloading data', error);
     }
   });
-  const [isInitailDialogBoxOpen, setIsInitailDialogBoxOpen] = useState(false);
+  const [isInitailDialogBoxOpen, setIsInitailDialogBoxOpen] = useState(true);
   const [isDownloadOpen, setIsDownloadOpen] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
 
   useEffect(() => {
-    const hasOpened = sessionStorage.getItem("dialogOpened");
+    const hasOpened = sessionStorage.getItem('dialogOpened');
     if (!hasOpened) {
       setIsInitailDialogBoxOpen(true);
-      sessionStorage.setItem("dialogOpened", "true");
+      sessionStorage.setItem('dialogOpened', 'true');
     }
   }, []);
 
@@ -1552,7 +1550,7 @@ const Dashboard = () => {
   };
 
   const handleClick = async () => {
-    setError(""); // Clear any previous error
+    setError(''); // Clear any previous error
     setIsInitailDialogBoxOpen(false); // Close the dialog after selection
     setUpdateMap((prev) => !prev);
 
@@ -1577,7 +1575,7 @@ const Dashboard = () => {
 
   const handleDialogClose = (isOpen) => {
     if (!isOpen && !formValues.city) {
-      setError("Please select a city before closing the dialog box.");
+      setError('Please select a city before closing the dialog box.');
       setIsInitailDialogBoxOpen(true); // Prevent dialog from closing
     } else {
       setIsInitailDialogBoxOpen(isOpen);
@@ -1586,7 +1584,7 @@ const Dashboard = () => {
 
   const handleDialogOpenChange = (Open) => {
     if (!Open) {
-      setErrors("");
+      setErrors('');
       setFormDownload({});
       setFormDownloadMonths([]);
       setCurrentStep(1);
@@ -1613,11 +1611,11 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
-    if (formValues.device_type === "static") {
-      setSelectedSensorType("static");
+    if (formValues.device_type === 'static') {
+      setSelectedSensorType('static');
     }
-    if (formValues.device_type === "dynamic") {
-      setSelectedSensorType("dynamic");
+    if (formValues.device_type === 'dynamic') {
+      setSelectedSensorType('dynamic');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [updateMap]);
@@ -1630,11 +1628,11 @@ const Dashboard = () => {
 
     setErrors((prevErrors) => ({
       ...prevErrors,
-      [field]: "",
+      [field]: '',
     }));
   };
   const handleSelectMonths = (field, value) => {
-    const [month, year] = value.split("-");
+    const [month, year] = value.split('-');
 
     setFormDownloadMonths({
       ...formDownload,
@@ -1644,7 +1642,7 @@ const Dashboard = () => {
 
     setErrors((prevErrors) => ({
       ...prevErrors,
-      [field]: "",
+      [field]: '',
     }));
   };
   const handleUsageType = (type) => {
@@ -1654,7 +1652,7 @@ const Dashboard = () => {
     }));
     setErrors((prevErrors) => ({
       ...prevErrors,
-      usage_type: "",
+      usage_type: '',
     }));
   };
 
@@ -1665,17 +1663,17 @@ const Dashboard = () => {
       [name]: value,
     }));
 
-    if (name === "email") {
+    if (name === 'email') {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (value && !emailRegex.test(value)) {
-        setEmailError("Invalid email format");
+        setEmailError('Invalid email format');
       } else {
-        setEmailError("");
+        setEmailError('');
       }
     }
     setErrors((prevErrors) => ({
       ...prevErrors,
-      [name]: "",
+      [name]: '',
     }));
   };
 
@@ -1684,10 +1682,10 @@ const Dashboard = () => {
     if (currentStep === 1) {
       let step1Errors = {};
       if (!formDownloadMonths.from_month && !formDownloadMonths.year)
-        step1Errors.from_month = "Month is required";
-      if (!formDownload.city) step1Errors.city = "City is required";
+        step1Errors.from_month = 'Month is required';
+      if (!formDownload.city) step1Errors.city = 'City is required';
       if (!formDownload.device_type)
-        step1Errors.device_type = "Device type is required";
+        step1Errors.device_type = 'Device type is required';
       if (Object.keys(step1Errors).length > 0) {
         setErrors(step1Errors);
         return;
@@ -1709,30 +1707,30 @@ const Dashboard = () => {
     let errors = {};
 
     if (!formDownload.email || !emailRegex.test(formDownload.email)) {
-      errors.email = "Invalid email format";
+      errors.email = 'Invalid email format';
     }
 
     if (!formDownload.name) {
-      errors.name = "Name is required";
+      errors.name = 'Name is required';
     }
 
     if (!formDownload.usage_type) {
-      errors.usage_type = "Usage type is required";
+      errors.usage_type = 'Usage type is required';
     }
 
     if (!formDownload.purpose) {
-      errors.purpose = "Purpose is required";
+      errors.purpose = 'Purpose is required';
     }
 
     if (!formDownloadMonths.from_month && !formDownloadMonths.year) {
-      errors.from_month = "Month is required";
+      errors.from_month = 'Month is required';
     }
     if (!formDownload.city) {
-      errors.city = "City is required";
+      errors.city = 'City is required';
     }
 
     if (!formDownload.device_type) {
-      errors.device_type = "Device type is required";
+      errors.device_type = 'Device type is required';
     }
 
     if (Object.keys(errors).length > 0) {
@@ -1763,15 +1761,24 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (
-      formValues.device_type === "dynamic" &&
-      formValues.device_id !== "all"
+      formValues.device_type === 'dynamic' &&
+      formValues.device_id !== 'all'
     ) {
       setFormValues((prevValues) => ({
         ...prevValues,
-        device_id: "all",
+        device_id: 'all',
       }));
     }
   }, [formValues.device_type, formValues.device_id]);
+
+  const statsData = [
+    { id: 1, title: '2', subtitle: 'Cities' },
+    { id: 2, title: '100+', subtitle: 'Sensors' },
+    { id: 3, title: '150+', subtitle: 'Volunteers' },
+    { id: 4, title: '1000+', subtitle: 'Records collected' },
+    { id: 5, title: '~10M', subtitle: 'Data points' },
+  ];
+
   return (
     <div className="relative top-24 flex flex-col gap-4 min-h-screen md:max-h-screen xl:max-h-screen no-scrollbar">
       <div className="flex flex-col border rounded-sm p-4">
@@ -1782,11 +1789,11 @@ const Dashboard = () => {
             </Label>
             <Select
               value={formValues.city}
-              onValueChange={(value) => handleSelectChange("city", value)}
+              onValueChange={(value) => handleSelectChange('city', value)}
               disabled={isSubmitting}
             >
               <SelectTrigger className="w-full font-normal text-[18px]">
-                <SelectValue placeholder={formValues.city || "Select a city"} />
+                <SelectValue placeholder={formValues.city || 'Select a city'} />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
@@ -1804,13 +1811,13 @@ const Dashboard = () => {
             <Select
               value={formValues.device_type}
               onValueChange={(value) =>
-                handleSelectChange("device_type", value)
+                handleSelectChange('device_type', value)
               }
               disabled={isSubmitting}
             >
               <SelectTrigger className="w-full font-normal text-[18px]">
                 <SelectValue
-                  placeholder={formValues.device_type || "Select a sensor type"}
+                  placeholder={formValues.device_type || 'Select a sensor type'}
                 />
               </SelectTrigger>
               <SelectContent>
@@ -1827,16 +1834,16 @@ const Dashboard = () => {
               Date Range
             </Label>
             <DatePicker
-              label={dateWithOrdinal(formValues.from_date) || "Start Date"}
-              onSelect={(date) => handleDateChange("from_date", date)}
+              label={dateWithOrdinal(formValues.from_date) || 'Start Date'}
+              onSelect={(date) => handleDateChange('from_date', date)}
               disabled={isSubmitting}
             />
           </div>
 
           <div className="flex flex-col flex-1 ">
             <DatePicker
-              label={dateWithOrdinal(formValues.to_date) || "End Date"}
-              onSelect={(date) => handleDateChange("to_date", date)}
+              label={dateWithOrdinal(formValues.to_date) || 'End Date'}
+              onSelect={(date) => handleDateChange('to_date', date)}
               disabled={isSubmitting}
             />
           </div>
@@ -1850,7 +1857,7 @@ const Dashboard = () => {
               {isSubmitting ? (
                 <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
               ) : (
-                "Submit"
+                'Submit'
               )}
             </Button>
           </div>
@@ -1881,9 +1888,9 @@ const Dashboard = () => {
           <div className="relative">
             <div className="zoom-bounds" onClick={handleZoomToBounds}>
               <Tippy
-                placement={"right-end"}
-                theme={"dark"}
-                content={" Reset View"}
+                placement={'right-end'}
+                theme={'dark'}
+                content={' Reset View'}
                 arrow={false}
                 className="zoom-bounds-tooltip"
               >
@@ -1910,8 +1917,8 @@ const Dashboard = () => {
             isSensorClose={isSensorClose}
           />
           <div className="relative">
-            {selectedSensorType === "static" ? (
-              ""
+            {selectedSensorType === 'static' ? (
+              ''
             ) : (
               <div>
                 <div className="color-scale-card">
@@ -1924,9 +1931,9 @@ const Dashboard = () => {
                       onClick={handleDensityClick}
                     >
                       <Tippy
-                        placement={"right-end"}
-                        theme={"dark"}
-                        content={"Show/Hide"}
+                        placement={'right-end'}
+                        theme={'dark'}
+                        content={'Show/Hide'}
                         arrow={false}
                         className="zoom-bounds-tooltip"
                       >
@@ -1954,9 +1961,9 @@ const Dashboard = () => {
                       onClick={handleRecordClick}
                     >
                       <Tippy
-                        placement={"right-end"}
-                        theme={"dark"}
-                        content={"Show/Hide"}
+                        placement={'right-end'}
+                        theme={'dark'}
+                        content={'Show/Hide'}
                         arrow={false}
                         className="zoom-bounds-tooltip"
                       >
@@ -1968,7 +1975,7 @@ const Dashboard = () => {
               </div>
             )}
 
-            {selectedSensorType === "static" ? (
+            {selectedSensorType === 'static' ? (
               <div className="static-sensor-card">
                 <div className="static-sensor-div">
                   <div className="static-sensor">
@@ -1976,7 +1983,7 @@ const Dashboard = () => {
                       src={MarkerRed}
                       className="static-sensot-icon"
                       alt="static-sensor"
-                      style={{ width: "25px" }}
+                      style={{ width: '25px' }}
                     />
                     <span>Static Data Points</span>
                   </div>
@@ -1985,9 +1992,9 @@ const Dashboard = () => {
                     onClick={handleStaticClick}
                   >
                     <Tippy
-                      placement={"right-end"}
-                      theme={"dark"}
-                      content={"Show/Hide"}
+                      placement={'right-end'}
+                      theme={'dark'}
+                      content={'Show/Hide'}
                       arrow={false}
                       className="zoom-bounds-tooltip"
                     >
@@ -1997,10 +2004,10 @@ const Dashboard = () => {
                 </div>
               </div>
             ) : (
-              ""
+              ''
             )}
             {isCountLoading || isSubmitting ? (
-              ""
+              ''
             ) : (
               <div className="device-card-div">
                 <div className="devices-card">
@@ -2013,12 +2020,12 @@ const Dashboard = () => {
                 </div>
                 {pointData &&
                   !isSensorClose &&
-                  formValues.device_type === "static" && (
+                  formValues.device_type === 'static' && (
                     <div className="device-data-card">
                       <span className="label">Sensor name: </span>
                       <span>{pointData}</span>
                       <span onClick={checkSensor}>
-                        {" "}
+                        {' '}
                         <img src={Close} className="device-close-btn" />
                       </span>
                     </div>
@@ -2116,7 +2123,7 @@ const Dashboard = () => {
                   <Select
                     value={formDownload.from_month}
                     onValueChange={(value) =>
-                      handleSelectMonths("from_month", value)
+                      handleSelectMonths('from_month', value)
                     }
                   >
                     <SelectTrigger className="font-normal text-[14px]">
@@ -2147,7 +2154,7 @@ const Dashboard = () => {
                   </Label>
                   <Select
                     value={formDownload.city}
-                    onValueChange={(value) => handleSelect("city", value)}
+                    onValueChange={(value) => handleSelect('city', value)}
                   >
                     <SelectTrigger className="w-full font-normal text-[14px]">
                       <SelectValue placeholder="Select a City for download" />
@@ -2170,7 +2177,7 @@ const Dashboard = () => {
                   <Select
                     value={formDownload.device_type}
                     onValueChange={(value) =>
-                      handleSelect("device_type", value)
+                      handleSelect('device_type', value)
                     }
                   >
                     <SelectTrigger className="w-full font-normal text-[14px]">
@@ -2228,14 +2235,14 @@ const Dashboard = () => {
                 )}
                 <div className="w-full space-y-2 flex flex-col justify-center">
                   <Label className="font-medium text-[16px]">Usage Type</Label>
-                  <div className="flex gap-3 ml-2" style={{ marginTop: "3px" }}>
+                  <div className="flex gap-3 ml-2" style={{ marginTop: '3px' }}>
                     <Input
                       name="usagetype"
                       type="radio"
                       className="text-[16px] accent-[#31572C]"
                       value="commercial"
-                      style={{ width: "22px" }}
-                      onClick={() => handleUsageType("Commercial")}
+                      style={{ width: '22px' }}
+                      onClick={() => handleUsageType('Commercial')}
                     />
                     <Label className="flex flex-warp gap-2 font-medium text-[14px] mt-2">
                       Commercial
@@ -2245,8 +2252,8 @@ const Dashboard = () => {
                       type="radio"
                       className="text-[14px] accent-[#31572C]"
                       value="commercial"
-                      style={{ width: "22px" }}
-                      onClick={() => handleUsageType("Non-commercial")}
+                      style={{ width: '22px' }}
+                      onClick={() => handleUsageType('Non-commercial')}
                     />
                     <Label className="flex flex-warp gap-2 font-medium text-[14px] mt-2">
                       Non-commercial
@@ -2260,14 +2267,14 @@ const Dashboard = () => {
                 </div>
                 <div
                   className="flex flex-col w-full"
-                  style={{ marginTop: "6px" }}
+                  style={{ marginTop: '6px' }}
                 >
                   <Label className="font-medium text-[16px] leading-[28px] mb-2">
                     Purpose
                   </Label>
                   <Select
                     value={formDownload.purpose}
-                    onValueChange={(value) => handleSelect("purpose", value)}
+                    onValueChange={(value) => handleSelect('purpose', value)}
                   >
                     <SelectTrigger className="w-full font-normal text-[14px]">
                       <SelectValue placeholder="Select a purpose for download" />
@@ -2306,7 +2313,7 @@ const Dashboard = () => {
                     {isDownload ? (
                       <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
                     ) : (
-                      "Download"
+                      'Download'
                     )}
                   </Button>
                 </DialogFooter>
@@ -2318,12 +2325,16 @@ const Dashboard = () => {
 
       <div className="flex flex-col gap-2">
         <Dialog open={isInitailDialogBoxOpen} onOpenChange={handleDialogClose}>
-          <DialogContent className="w-full max-w-[auto]  w-4/5  p-0 border-none">
-            <div className="w-full max-w-[auto] h-[200px] sm:h-auto sm:w-full sm:max-h-full">
-            <div className="relative w-full h-[150px]">
-              <img src={image} className="w-full h-full object-cover z-0 image-card" alt="Your Image" />
-              <div className="absolute inset-0 opacity-50 image-color"></div>
-            </div>
+          <DialogContent className="w-4/5 max-w-[auto] p-0 border-none initial-dialog ">
+            <div className="w-full max-w-[auto] h-[200px] sm:h-auto sm:w-full sm:max-h-full xl:h-auto">
+              <div className="relative w-full h-[200px] initial-dialog__heading">
+                <img
+                  src={image}
+                  className="w-full h-full object-cover z-0 image-card"
+                  alt="Your Image"
+                />
+                <div className="absolute inset-0 opacity-50 image-color"></div>
+              </div>
               <div>
                 <div className="absolute top-0 left-0 flex flex-row gap-2 ml-5">
                   <img src={Undp} className="h-13 w-auto" alt="Logo 1" />
@@ -2333,88 +2344,47 @@ const Dashboard = () => {
                     alt="Logo 2"
                   />
                 </div>
-                <h1 className="absolute flex top-[12%] ml-5 text-white text-[28px] font-normal">
-                  <span className="w-4/5">
-                  Hyperlocal Mapping of Air Pollution and GHG emissions
+                <h1 className="absolute flex top-[12%] ml-5 text-white text-[30px] font-semibold initial-dialog__fontsSize">
+                  <span className="w-4/5 py-4">
+                    Hyperlocal Mapping of Air Pollution and GHG emissions
                   </span>
                 </h1>
               </div>
             </div>
-            <div className="w-full scroll-smooth md:scroll-auto sm:w-full p-6">
+            <div className="w-full h-[calc(100vh-200px)] overflow-y-auto p-6">
               <div className="w-full flex flex-col justify-center items-start">
-                <span className="font-normal text-[18px] leading-[26px] mb-4 text-justify">
+                <span className="font-normal text-[16px] sm:text-[14px] md:text-[16px] lg:text-[18px] leading-[26px] mb-4 text-justify">
                   Hyperlocal Mapping of Air Pollution project is part of the
                   Climate &amp; Energy Lacuna Fund cohort of 2023.
                 </span>
-                <span className="mb-4 w-full">
-                  <div className=" inset-0 grid grid-cols-5 gap-4 p-4">
-                    <div
-                      className="flex items-center justify-center text-[25px] font-semibold text-custom-light-green"
-                    >
-                      2
-                    </div>
-                    <div
-                      className="flex items-center justify-center  text-[25px] font-semibold text-custom-light-green"
-                    >
-                      100+
-                    </div>
-                    <div
-                      className="flex items-center justify-center  text-[25px] font-semibold text-custom-light-green"
-                    >
-                      150+
-                    </div>
-                    <div
-                      className="flex items-center justify-center  text-[25px] font-semibold text-custom-light-green"
-                    >
-                      1000+
-                    </div>
-                    <div
-                      className="flex items-center justify-center text-[25px] font-semibold text-custom-light-green"
-                    >
-                      ~10M
-                    </div>
 
-                    <div
-                      className="flex items-center justify-center  text-sm"
-                      style={{ color: "#626D7D" }}
-                    >
-                      Cities
-                    </div>
-                    <div
-                      className="flex items-center justify-center text-sm"
-                      style={{ color: "#626D7D" }}
-                    >
-                      Sensors
-                    </div>
-                    <div
-                      className="flex items-center justify-center  text-sm"
-                      style={{ color: "#626D7D" }}
-                    >
-                      Volunteers
-                    </div>
-                    <div
-                      className="flex items-center justify-center text-sm"
-                      style={{ color: "#626D7D" }}
-                    >
-                      Records collected
-                    </div>
-                    <div
-                      className="flex items-center justify-center text-sm"
-                      style={{ color: "#626D7D" }}
-                    >
-                      Data points
-                    </div>
+                <div className="mb-4 w-full">
+                  <div className="grid grid-cols-5 gap-4 p-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 initial-dialog__mobile-grid">
+                    {statsData.map((stat) => (
+                      <div
+                        key={stat.id}
+                        className="flex flex-col items-center justify-center"
+                      >
+                        <div className="text-[25px] sm:text-[20px] md:text-[22px] lg:text-[25px] font-semibold text-custom-light-green">
+                          {stat.title}
+                        </div>
+                        <div className="text-sm" style={{ color: '#626D7D' }}>
+                          {stat.subtitle}
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                </span>
-                <span className="font-normal text-[18px] leading-[26px] mb-4 text-justify">
+                </div>
+
+                <span className="font-normal text-[16px] sm:text-[14px] md:text-[16px] lg:text-[18px] leading-[26px] mb-4 text-justify">
                   Under this initiative, a novel approach is employed by
-                  leveraging citizen scientists and IoT- based low-cost sensors
+                  leveraging citizen scientists and IoT-based low-cost sensors
                   to collect hyperlocal air quality data. This data is used to
                   identify pollution sources and risk zones, facilitating
                   targeted actions by regulatory authorities.
                 </span>
 
-                <span className="font-normal text-[18px] leading-[26px] mb-4 text-justify">
+                <span className="font-normal text-[16px] sm:text-[14px] md:text-[16px] lg:text-[18px] leading-[26px] mb-4 text-justify">
                   To showcase data outreach, the project features the VAYU
                   Android-based application and the VAYU citizen portal digital
                   stack, which support targeted interventions and customized
@@ -2429,39 +2399,40 @@ const Dashboard = () => {
                   </div>
                 )}
               </div>
-              
+
               <DialogFooter>
-              <div
-                className="flex justify-between items-center w-full gap-4 mt-4 p-6"
-                style={{ background: "#3D944E", borderRadius:"6px" }}
-              >
-                <span className="text-[20px] text-white leading-[26px] font-normal mb-3 text-justify">
-                  Select any of the two cities to view data
-                </span>
-                <div className="flex gap-4">
-                  <Button
-                    variant="outline"
-                    className="w-1/2 text-custom-green rounded-sm border-none h-[50px] text-[18px] "
-                    onClick={() => {
-                      handleDialogButtonClick("patna");
-                      setIsInitailDialogBoxOpen(false);
-                    }}
-                  >
-                    Patna
-                  </Button>
-                  <Button
-                    variant="outline"
-                    className="w-1/2 text-custom-green rounded-sm border-none h-[50px] text-[18px]"
-                    onClick={() => {
-                      handleDialogButtonClick("gurugram");
-                      setIsInitailDialogBoxOpen(false);
-                    }}
-                  >
-                    Gurugram
-                  </Button>
+                <div
+                  className="flex flex-col sm:flex-row justify-between items-center w-full gap-4 mt-4 p-6"
+                  style={{ background: '#3D944E', borderRadius: '6px' }}
+                >
+                  <span className="text-[18px] sm:text-[16px] md:text-[18px] lg:text-[20px] text-white leading-[26px] font-normal text-justify">
+                    Select any of the two cities to view data
+                  </span>
+
+                  <div className="flex flex-col gap-4 w-full sm:flex-row sm:w-auto">
+                    <Button
+                      variant="outline"
+                      className="w-full text-custom-green rounded-sm border-none h-[50px] text-[16px] sm:w-1/2 sm:text-[18px]"
+                      onClick={() => {
+                        handleDialogButtonClick('patna');
+                        setIsInitailDialogBoxOpen(false);
+                      }}
+                    >
+                      Patna
+                    </Button>
+                    <Button
+                      variant="outline"
+                      className="w-full text-custom-green rounded-sm border-none h-[50px] text-[16px] sm:w-1/2 sm:text-[18px]"
+                      onClick={() => {
+                        handleDialogButtonClick('gurugram');
+                        setIsInitailDialogBoxOpen(false);
+                      }}
+                    >
+                      Gurugram
+                    </Button>
+                  </div>
                 </div>
-              </div>
-                </DialogFooter>
+              </DialogFooter>
             </div>
           </DialogContent>
         </Dialog>
