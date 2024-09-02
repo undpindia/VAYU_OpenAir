@@ -156,14 +156,12 @@
 .initial-dialog {
   height: auto;
 
-  // Height for screens up to 1441px
-  @media screen and (min-width: 1441px) {
+  @media screen and (min-width: 1499px) {
     height: 90% !important;
   }
 
-  // Height for screens wider than 1441px
   @media screen and (min-width: 1500px) {
-    height: 50% !important;
+    height: 650px !important;
   }
 
   &__heading {
