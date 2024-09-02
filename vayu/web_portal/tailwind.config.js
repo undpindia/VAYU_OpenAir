@@ -30,6 +30,7 @@ module.exports = {
       },
       colors: {
         'custom-green': '#31572C',
+        'custom-light-green': '#3D944E',
         'custom-grey1': '#7B7B7B',
         'custom-grey2': '#434343',
         border: 'hsl(var(--border))',
