@@ -100,6 +100,22 @@ module.exports = {
         '.no-scrollbar::-webkit-scrollbar': {
           display: 'none' /* Safari and Chrome */,
         },
+        '.thin-scrollbar': {
+          '&::-webkit-scrollbar': {
+            width: '5px' /* For Webkit browsers */,
+          },
+          '&::-webkit-scrollbar-thumb': {
+            backgroundColor: '#888' /* Custom color for the scrollbar thumb */,
+            borderRadius: '10px' /* Rounded corners for the scrollbar thumb */,
+          },
+          '&::-webkit-scrollbar-track': {
+            backgroundColor:
+              '#f1f1f1' /* Custom color for the scrollbar track */,
+            borderRadius: '10px' /* Rounded corners for the scrollbar track */,
+          },
+          '-ms-overflow-style': 'auto' /* IE and Edge */,
+          'scrollbar-width': 'thin' /* Firefox */,
+        },
       });
     }),
   ],
