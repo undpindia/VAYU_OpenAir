@@ -19,7 +19,16 @@ const App = () => {
   return (
     <div className="no-scrollbar">
       <Layout isActive={isMenuActive} toggleMenu={toggleMenu}>
-        {isMenuActive ? <Sections /> : <Dashboard />}
+        {isMenuActive && <Sections />}
+        <div
+          className={
+            isMenuActive
+              ? 'invisible pointer-events-none overflow-hidden h-0'
+              : 'visible'
+          }
+        >
+          <Dashboard />
+        </div>
       </Layout>
     </div>
   );
