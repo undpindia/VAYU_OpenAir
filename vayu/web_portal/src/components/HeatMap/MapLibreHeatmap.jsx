@@ -246,8 +246,8 @@ export default function MapLibreHeatmap({
     if (startFormatted && endFormatted) {
       setFilter([
         'all',
-        ['>=', ['get', 'data_creat'], startFormatted],
-        ['<=', ['get', 'data_creat'], endFormatted],
+        ['>=', ['get', 'data_created_time'], startFormatted],
+        ['<=', ['get', 'data_created_time'], endFormatted],
       ]);
       setFilterPointData([
         'all',
