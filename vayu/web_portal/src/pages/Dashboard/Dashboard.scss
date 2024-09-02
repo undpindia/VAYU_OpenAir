@@ -155,10 +155,11 @@
 
 .initial-dialog {
   height: auto;
-  
-  scrollbar-width: thin;
 
   // Height for screens up to 1441px
+  @media screen and (min-width: 320px) {
+    height: "auto" !important;
+  }
   @media screen and (min-width: 1499px) {
     height: 90% !important;
   }
@@ -168,6 +169,22 @@
   &__contentHeight {
     @media screen and (min-width: 1500px) {
       height: 250px !important;
+    }
+    @media screen and (min-width: 320px)  and (max-width: 500px){
+      margin-top: 30px;
+      height: 250px !important;
+    }
+  }
+  &__footer-section {
+    @media screen and  (min-width: 200px) and (max-width: 500px) {
+     margin-bottom: 30px;
+    }
+  }
+  &__footer-btn {
+    @media screen and  (min-width: 200px) and (max-width: 500px) {
+     display: flex;
+     flex-direction: row !important;
+     width: 100% !important;
     }
   }
   &__heading {

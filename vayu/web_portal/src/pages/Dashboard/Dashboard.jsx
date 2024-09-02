@@ -2400,7 +2400,7 @@ const Dashboard = () => {
                 )}
               </div>
             </div>
-             <div className='px-6'>
+            <div className='px-6 xs:p-6 initial-dialog__footer-section'>
             <DialogFooter>
                 <div
                   className="flex flex-col sm:flex-row justify-between items-center w-full gap-4 p-4 md:mb-6 xl:mb-0"
@@ -2410,7 +2410,7 @@ const Dashboard = () => {
                     Select any of the two cities to view data
                   </span>
 
-                  <div className="flex flex-col gap-4 w-1/4 sm:flex-row sm:w-2/6">
+                  <div className="flex flex-col gap-4 w-1/4 sm:flex-row sm:w-2/6 initial-dialog__footer-btn">
                     <Button
                       variant="outline"
                       className="w-full text-custom-green rounded-sm border-none h-[50px] text-[16px] sm:w-1/2 sm:text-[18px]"
