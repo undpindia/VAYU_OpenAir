@@ -155,17 +155,21 @@
 
 .initial-dialog {
   height: auto;
+  
+  scrollbar-width: thin;
 
   // Height for screens up to 1441px
-  @media screen and (min-width: 1441px) {
+  @media screen and (min-width: 1499px) {
     height: 90% !important;
   }
-
-  // Height for screens wider than 1441px
   @media screen and (min-width: 1500px) {
-    height: 50% !important;
+    height: 650px !important;
   }
-
+  &__contentHeight {
+    @media screen and (min-width: 1500px) {
+      height: 250px !important;
+    }
+  }
   &__heading {
     // Styles for screens between 200px and 500px wide
     @media screen and (min-width: 200px) and (max-width: 500px) {
