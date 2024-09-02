@@ -1527,7 +1527,7 @@ const Dashboard = () => {
       console.error('Error downloading data', error);
     }
   });
-  const [isInitailDialogBoxOpen, setIsInitailDialogBoxOpen] = useState(true);
+  const [isInitailDialogBoxOpen, setIsInitailDialogBoxOpen] = useState(false);
   const [isDownloadOpen, setIsDownloadOpen] = useState(false);
   const [error, setError] = useState('');
 
@@ -1780,7 +1780,7 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="relative top-24 flex flex-col gap-4 min-h-screen md:max-h-screen xl:max-h-screen no-scrollbar">
+    <div className="relative top-[102px] flex flex-col gap-4 min-h-screen md:max-h-screen xl:max-h-screen no-scrollbar">
       <div className="flex flex-col border rounded-sm p-4">
         <div className="flex flex-wrap w-full  gap-2 items-end">
           <div className="flex flex-col flex-1 min-w-[200px]">
@@ -2083,7 +2083,7 @@ const Dashboard = () => {
         ) : (
           heatMapActivityPoints &&
           heatMapActivityPoints.length > 0 && (
-            <div className="border border-primary rounded-sm p-4">
+            <div className="border shadow-md rounded-sm p-4">
               <ActivityGraph data={heatMapActivityPoints} />
             </div>
           )

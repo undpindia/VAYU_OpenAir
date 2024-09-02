@@ -6,7 +6,7 @@ const Header = ({ toggleMenu, isActive }) => {
   // console.log('isActive', isActive);
   return (
     <header className="fixed z-[50] top-0 w-full flex justify-between items-center px-10 sm:px-12 md:px-16 lg:px-20 xl:px-24 bg-white">
-      <div className="mt-6">
+      <div className="mt-6 mb-4">
         <img src={VayuLogo} alt="Vayu Logo" />
       </div>
 
