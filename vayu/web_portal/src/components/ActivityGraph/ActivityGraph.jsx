@@ -2,6 +2,8 @@ import CalendarHeatmap from 'react-calendar-heatmap';
 import 'react-calendar-heatmap/dist/styles.css';
 import './ActivityGraph.scss';
 import { Fragment, useState, useMemo } from 'react';
+import moment from 'moment';
+
 
 const colorScaleSummary = (number) => {
   if (number <= 500) return 'color-scale-0';
@@ -111,7 +113,7 @@ const ActivityGraph = ({ data }) => {
         visible: true,
         x: tooltipX,
         y: tooltipY,
-        content: `Date: ${value.date} | Count: ${value.count}`,
+        content: `Date: ${moment(value.date).format('DD.MM.YYYY')} | Count: ${value.count}`,
       });
     } else {
       const rect = event.target.getBoundingClientRect();
