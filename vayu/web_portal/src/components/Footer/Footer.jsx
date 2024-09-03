@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <footer className="h-10 w-full flex justify-between items-center bg-white pb-6">
+    <footer className="h-10 w-full flex justify-between items-center bg-white pb-6 footer-section">
       <div className="flex flex-col">
         <div className="font-normal text-[20px] leading-[25.1px] text-justify text-[#434343]">
           &copy; VAYU 2024 - All rights reserved
