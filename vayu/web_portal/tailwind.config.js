@@ -114,7 +114,6 @@ module.exports = {
             borderRadius: '10px' /* Rounded corners for the scrollbar track */,
           },
           '-ms-overflow-style': 'auto' /* IE and Edge */,
-          'scrollbar-width': 'thin' /* Firefox */,
         },
       });
     }),

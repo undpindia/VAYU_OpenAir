@@ -2351,7 +2351,7 @@ const Dashboard = () => {
                 </h1>
               </div>
             </div>
-            <div className="w-full h-[calc(100vh-200px)] overflow-y-auto p-6">
+            <div className="w-full h-[230px] overflow-y-auto px-6 thin-scrollbar initial-dialog__contentHeight">
               <div className="w-full flex flex-col justify-center items-start">
                 <span className="font-normal text-[16px] sm:text-[14px] md:text-[16px] lg:text-[18px] leading-[26px] mb-4 text-justify">
                   Hyperlocal Mapping of Air Pollution project is part of the
@@ -2399,17 +2399,18 @@ const Dashboard = () => {
                   </div>
                 )}
               </div>
-
-              <DialogFooter>
+            </div>
+            <div className='px-6 xs:p-6 initial-dialog__footer-section'>
+            <DialogFooter>
                 <div
-                  className="flex flex-col sm:flex-row justify-between items-center w-full gap-4 mt-4 p-6"
+                  className="flex flex-col sm:flex-row justify-between items-center w-full gap-4 p-4 md:mb-6 xl:mb-0"
                   style={{ background: '#3D944E', borderRadius: '6px' }}
                 >
                   <span className="text-[18px] sm:text-[16px] md:text-[18px] lg:text-[20px] text-white leading-[26px] font-normal text-justify">
                     Select any of the two cities to view data
                   </span>
 
-                  <div className="flex flex-col gap-4 w-full sm:flex-row sm:w-auto">
+                  <div className="flex flex-col gap-4 w-1/4 sm:flex-row sm:w-2/6 initial-dialog__footer-btn">
                     <Button
                       variant="outline"
                       className="w-full text-custom-green rounded-sm border-none h-[50px] text-[16px] sm:w-1/2 sm:text-[18px]"
@@ -2433,7 +2434,7 @@ const Dashboard = () => {
                   </div>
                 </div>
               </DialogFooter>
-            </div>
+              </div>
           </DialogContent>
         </Dialog>
         <Toaster position="bottom-center" reverseOrder={false} />
