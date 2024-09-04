@@ -63,9 +63,9 @@ const DataCollection = () => {
         </ul>
       </span>
 
-      <div className="font-normal text-[20px] leading-[28.16px] p-[20px] text-justify">
+      {/* <div className="font-normal text-[20px] leading-[28.16px] p-[20px] text-justify">
         <img src={Image} alt="Data Collection" className="w-full" />
-      </div>
+      </div> */}
     </div>
   );
 };

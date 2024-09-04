@@ -184,3 +184,25 @@
 .maplibregl-popup.custom-popup.maplibregl-popup-anchor-top{
   width: 500px !important;
 }
+
+@media screen and (min-width: 320px)  and (max-width: 500px){
+  .device-card-div {
+    max-height: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: flex-start;
+    position: absolute;
+    top: -442px;
+    margin-left: 50px;
+  }
+  .devices-card, .data-points-card, .device-data-card {
+    height: 36px;
+    width: auto;
+    padding: 6px;
+    bottom: 10px;
+    border-radius: 6px;
+    border: 1px solid #cbd5e1;
+    background-color: #ffffff;
+}
+}
