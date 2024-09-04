@@ -68,13 +68,13 @@ const Sections = () => {
     <div className="flex flex-col md:flex-row min-h-screen md:max-h-screen xl:max-h-screen overflow-hidden">
       {/* LEFT SIDE */}
       <div className="hidden md:block md:w-1/2 bg-white">
-        <div className="h-full bg-white flex flex-col items-start justify-center">
-          <div className="space-y-2">
+        <div className="h-full bg-white flex flex-col items-start justify-center md:mt-6 lg:mt-0">
+          <div className="space-y-6 lg:space-y-6 md:space-y-2">
             {sections.map((section, index) => (
               <h1
                 key={index}
                 onClick={() => handleSectionClick(index)}
-                className={`text-[60px] leading-[73.8px] tracking-[0.04em] cursor-pointer font-bold `}
+                className={`text-[60px] md:text-[35px] lg:text-[55px] leading-[73.8px] lg:leading-[55px] md:leading-[40px] tracking-[0.04em] cursor-pointer font-bold `}
                 style={{
                   color: selectedSection === index ? '#31572C' : '#A6C9A1',
                 }}
