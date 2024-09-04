@@ -155,7 +155,7 @@
 
 .initial-dialog {
   height: auto;
-
+  border-radius: 6px;
   // Height for screens up to 1441px
   @media screen and (min-width: 320px) {
     height: "auto" !important;
@@ -172,7 +172,7 @@
     }
     @media screen and (min-width: 320px)  and (max-width: 500px){
       margin-top: 30px;
-      height: 250px !important;
+      height: 160px !important;
     }
   }
   &__footer-section {
@@ -239,6 +239,10 @@
       margin-top: 5px;
       margin-bottom: 10px;
       font-size: 12px;
+    }
+
+    .header-button{
+
     }
   }
   .static-sensor-container{

@@ -677,7 +677,7 @@ const Dashboard = () => {
 
       <div className="flex flex-col gap-2 mt-4">
         <div className="flex items-center gap-1">
-          <h1 className="font-[500] text-[28px] leading-[28px] text-[#11263C]">
+          <h1 className="font-[500] text-[28px] leading-[28px] text-[#11263C] mb-1">
             Map
           </h1>
 
@@ -845,7 +845,7 @@ const Dashboard = () => {
 
       <div className="flex flex-col gap-2 mt-4">
         <div className="flex items-center gap-1">
-          <h1 className="font-[500] text-[28px] leading-[28px] text-[#11263C]">
+          <h1 className="font-[500] text-[28px] leading-[28px] text-[#11263C] mb-1">
             Data Trend
           </h1>
 
@@ -878,7 +878,7 @@ const Dashboard = () => {
 
       <div className="flex flex-col gap-2 mt-4">
         <div className="flex items-center gap-1">
-          <h1 className="font-[500] text-[28px] leading-[28px] text-[#11263C]">
+          <h1 className="font-[500] text-[28px] leading-[28px] text-[#11263C] mb-1">
             Activity
           </h1>
 
@@ -907,7 +907,7 @@ const Dashboard = () => {
               Download Data
             </Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px] p-6">
+          <DialogContent className="w-4/5 max-w-[auto] rounded-md border-none sm:max-w-[425px] p-6">
             <DialogHeader>
               <DialogTitle>
                 <h1 className="font-[500] text-[24px] leading-[28px] text-[#11263C]">
