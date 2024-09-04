@@ -236,10 +236,12 @@ const ActivityGraph = ({ data }) => {
                 .map((range) => `${getColor(range.colorClass)}`)
                 .join(', ')})`,
             }}
-            title={activeRanges
-              .map((range) => `${range.min} - ${range.max}`)
-              .join(', ')}
-          ></div>
+            // title={activeRanges
+            //   .map((range) => `${range.min} - ${range.max}`)
+            //   .join(', ')}
+          >
+
+          </div>
           {/* Markers for each range */}
           {/* {activeRanges.map((range, index) => (
             <div
