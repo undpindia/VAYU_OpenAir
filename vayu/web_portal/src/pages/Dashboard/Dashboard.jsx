@@ -585,7 +585,7 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="relative top-[102px] flex flex-col gap-4 min-h-screen md:max-h-screen xl:max-h-screen no-scrollbar">
+    <div className="relative top-[102px] flex flex-col gap-4 min-h-screen md:max-h-screen xl:max-h-screen thin-scrollbar">
       <div className="flex flex-col border rounded-sm p-4">
         <div className="flex flex-wrap w-full  gap-2 items-end">
           <div className="flex flex-col flex-1 min-w-[200px]">
