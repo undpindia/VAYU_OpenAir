@@ -12,7 +12,8 @@ import { Images } from './ImageImports';
 import moment from 'moment';
 import Close from '../../assets/images/icons/close.svg';
 import  Loader  from '../ui/loader';
-import Basemap from "./Basemap.json"
+import Basemap from "./Basemap.json";
+import { useQuery } from 'react-query';
 
 const formatDate = (date) => {
   if (!date) return null;
@@ -129,7 +130,7 @@ export default function MapLibreHeatmap({
   });
   const [recordCaptured, setRecordCaptured] = useState([]);
   const [selectedFiles, setSelectedFiles] = useState([]);
-  const [loader, setLoader] = useState(true);
+  // const [loader, setLoader] = useState(true);
   const [loaderlat, setLoaderLat] = useState('');
   const [loaderlng, setLoaderLng] = useState('');
 
@@ -299,27 +300,46 @@ export default function MapLibreHeatmap({
     }
   }, [updateMap]);
 
-  useEffect(() => {
-    const bodyparam = {
-      city: selectedCity,
-    };
-    const fetchPoints = async () => {
-      setLoader(true); 
-      try {
-        const response = await getStaticDataPoints(bodyparam);
-        if (response.data.code == 200) {
-          setPoints(response.data.data);
-        }
-      } catch (error) {
-        console.log('Failed to fetch points:', error);
-      } finally{
-        setLoader(false)
-      }
-    };
-    if (selectedType === 'static') {
-      fetchPoints();
+  // useEffect(() => {
+  //   const bodyparam = {
+  //     city: selectedCity,
+  //   };
+  //   const fetchPoints = async () => {
+  //     setLoader(true); 
+  //     try {
+  //       const response = await getStaticDataPoints(bodyparam);
+  //       if (response.data.code == 200) {
+  //         setPoints(response.data.data);
+  //       }
+  //     } catch (error) {
+  //       console.log('Failed to fetch points:', error);
+  //     } finally{
+  //       setLoader(false)
+  //     }
+  //   };
+  //   if (selectedType === 'static') {
+  //     fetchPoints();
+  //   }
+  // }, [updateMap]);
+
+  const { fetchpointdata,  isLoading: isPointDataLoading, refetch } = useQuery(
+    ['staticPoints', selectedCity],
+    () => getStaticDataPoints({ city: selectedCity }),
+    {
+      enabled: false,
+      cacheTime: 10000, // 10 seconds
+      staleTime: 10000, // 10 seconds
+      onSuccess: (data) => {
+         setPoints(data.data.data);
+      },
     }
-  }, [updateMap]);
+  );
+  
+  useEffect(() => {
+    if (selectedType==='static') {
+      refetch(); // Manually trigger fetch
+    }
+  }, [updateMap, refetch]);
 
   const handleMarkerClick = (point) => {
     setSelectedMarker(point);
@@ -637,13 +657,13 @@ export default function MapLibreHeatmap({
           });
           map.on('click', 'recordDataPoints', handleClickOnRecordDataPoint);
         }}
-        >{loader && selectedSensorType === 'static' && isStaticVisible &&(
+        >{isPointDataLoading && selectedSensorType === 'static' && isStaticVisible &&(
           <Marker longitude={loaderlat} latitude={loaderlng}>
             <Loader /> {/* Display loader marker while fetching data */}
           </Marker>
         )}
-        {isStaticVisible &&
-          selectedSensorType === 'static' && !loader &&
+          {isStaticVisible &&
+          selectedSensorType === 'static' && !isPointDataLoading &&
           points.map((point, index) => (
             <Marker
               key={index}
