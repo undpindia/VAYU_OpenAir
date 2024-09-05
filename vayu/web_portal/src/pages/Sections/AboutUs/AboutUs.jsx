@@ -8,7 +8,7 @@ const AboutUs = () => {
   ];
 
   return (
-    <div className="w-full flex justify-center items-start flex-col md:mt-[50%] sm:mt-[70px] lg:mt-8">
+    <div className="w-full flex justify-center items-start flex-col sm:relative sm:top-[5%] md:mt-[40%] lg:mt-[10%]">
       <h1 className="font-bold text-[20px] md:text-[14px] md:leading-[20px]  lg:text-[24px] lg:leading-[28.16px] leading-[28.16px] md:p-2 lg:p-[10px] p-[10px] text-justify">
         Hyperlocal Mapping of Air Pollution and GHG emissions
       </h1>
@@ -43,7 +43,10 @@ const AboutUs = () => {
               <div className="text-[20px] md:text-[14px] md:leading-[20px] lg:text-[30px] lg:leading-[28.16px] leading-[28.16px] md:p-2 lg:p-[10px] p-[10px] text-justify font-semibold text-custom-light-green">
                 {stat.title}
               </div>
-              <div className="text-lg text-center" style={{ color: '#626D7D' }}>
+              <div
+                className="text-lg text-center md:text-[14px] md:leading-[20px]"
+                style={{ color: '#626D7D' }}
+              >
                 {stat.subtitle}
               </div>
             </div>

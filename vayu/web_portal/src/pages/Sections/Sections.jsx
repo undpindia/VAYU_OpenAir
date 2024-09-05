@@ -101,7 +101,9 @@ const Sections = () => {
             <div className="w-full h-full flex flex-col items-center justify-center md:flex-row">
               <h1
                 onClick={() => handleSectionClick(index)}
-                className={`cursor-pointer text-2xl font-bold md:hidden mt-20 mb-4`}
+                className={`cursor-pointer text-2xl font-bold md:hidden ${
+                  index === 0 ? 'mt-24' : 'mt-10 text-center'
+                } mb-4`}
                 style={{
                   color: selectedSection === index ? '#31572C' : '#A6C9A1',
                 }}
@@ -111,7 +113,7 @@ const Sections = () => {
               <div
                 className={`${
                   section.title === 'DATA COLLECTION' &&
-                  'h-full overflow-auto thin-scrollbar mt-40'
+                  'h-full overflow-auto no-scrollbar mt-4'
                 }`}
               >
                 {section.content}
