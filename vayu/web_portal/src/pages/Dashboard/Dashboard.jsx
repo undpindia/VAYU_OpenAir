@@ -102,6 +102,9 @@ const Dashboard = () => {
   const [isStaticVisible, setIsStaticVisible] = useState(true);
   const [months, setMonths] = useState([]);
   const [isSensorClose, setIsSensorClose] = useState(false);
+  const [isContentVisible, setContentVisible] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
 
   // const [formValuesError, setFormValuesError] = useState('');
 
@@ -584,7 +587,21 @@ const Dashboard = () => {
     { id: 4, title: '1000+', subtitle: 'Records collected' },
     { id: 5, title: '~10M', subtitle: 'Data points' },
   ];
+  const handleToggleColorScale = () => {
+    setContentVisible(!isContentVisible);
+  };
 
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+  const displayStyle = windowWidth < 500 ? (isContentVisible ? 'block' : 'none') : 'block';
   return (
     <div className="relative top-[102px] flex flex-col gap-4 min-h-screen md:max-h-screen xl:max-h-screen thin-scrollbar">
       <div className="flex flex-col border rounded-sm p-4">
@@ -723,10 +740,20 @@ const Dashboard = () => {
             isSensorClose={isSensorClose}
           />
           <div className="relative">
+          <div 
+              className="toggle-button"
+              onClick={handleToggleColorScale}
+              style={{bottom: isContentVisible ? "45px": "",
+                 backgroundColor:isContentVisible ?  "" : "#fff",
+                 left:isContentVisible ?  "-10px" : "10px" }}
+            >
+              {isContentVisible ? <img src={Close} className='h-7'/> : 'Show legend'} 
+          </div>       
             {selectedSensorType === 'static' ? (
               ''
             ) : (
-              <div className='color-scale-container'>
+              <div className='color-scale-container'  
+              style={{ display: displayStyle }}>
                 <div className="color-scale-card">
                   <div className="data-density-div">
                     <div className="data-density">
@@ -782,7 +809,7 @@ const Dashboard = () => {
             )}
 
             {selectedSensorType === 'static' ? (
-              <div className='static-sensor-container'>
+              <div className='static-sensor-container'  style={{ display: displayStyle }}>
               <div className="static-sensor-card">
                 <div className="static-sensor-div">
                   <div className="static-sensor">
@@ -1139,20 +1166,20 @@ const Dashboard = () => {
                 <img
                   src={image}
                   className="w-full h-full object-cover z-0 image-card"
-                  alt="Your Image"
+                  alt="cover image"
                 />
                 <div className="absolute inset-0 opacity-50 image-color"></div>
               </div>
               <div>
                 <div className="absolute top-0 left-0 flex flex-row gap-2 ml-5">
-                  <img src={Undp} className="h-13 w-auto" alt="Logo 1" />
+                  <img src={Undp} className="h-16 w-auto" alt="Logo 1" />
                   <img
                     src={Vayu}
                     className="h-7 w-auto self-center"
                     alt="Logo 2"
                   />
                 </div>
-                <h1 className="absolute flex top-[12%] ml-5 text-white text-[30px] font-semibold initial-dialog__fontsSize">
+                <h1 className="absolute flex top-[12%] ml-5 text-white text-[28px] font-semibold initial-dialog__fontsSize">
                   <span className="w-4/5 py-4">
                     Hyperlocal Mapping of Air Pollution and GHG emissions
                   </span>
