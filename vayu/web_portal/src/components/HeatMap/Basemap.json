@@ -13,7 +13,7 @@
             "source": "osm",
             "source-layer": "earth",
             "paint": {
-                "fill-color": "#E9EDC9"
+                "fill-color": "#E9EFEC"
             }
         },
         {
@@ -354,7 +354,7 @@
             "source": "osm",
             "source-layer": "water",
             "paint": {
-                "fill-color": "#A3B18A"
+                "fill-color": "#6A9C89"
             }
         },
         {
@@ -372,7 +372,7 @@
                 ]
             ],
             "paint": {
-                "line-color": "#A3B18A",
+                "line-color": "#6A9C89",
                 "line-width": 0.5
             }
         },
@@ -391,7 +391,7 @@
                 ]
             ],
             "paint": {
-                "line-color": "#A3B18A",
+                "line-color": "#6A9C89",
                 "line-width": [
                     "interpolate",
                     [

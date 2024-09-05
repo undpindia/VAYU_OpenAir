@@ -290,7 +290,8 @@ const Dashboard = () => {
     try {
       const response = await getMonth();
       if (response.data.code === 200 && response.data.success === true) {
-        const formattedMonths = response.data.device_count.map((device) => ({
+        const sortedDevices = response.data.device_count.sort((a, b) => a.id - b.id);
+        const formattedMonths = sortedDevices.map((device) => ({
           label: `${device.month} ${device.year}`,
           month: device.month,
           year: device.year,
@@ -677,7 +678,7 @@ const Dashboard = () => {
 
       <div className="flex flex-col gap-2 mt-4">
         <div className="flex items-center gap-1">
-          <h1 className="font-[500] text-[28px] leading-[28px] text-[#11263C]">
+          <h1 className="font-[500] text-[28px] leading-[28px] text-[#11263C] mb-1">
             Map
           </h1>
 
@@ -845,7 +846,7 @@ const Dashboard = () => {
 
       <div className="flex flex-col gap-2 mt-4">
         <div className="flex items-center gap-1">
-          <h1 className="font-[500] text-[28px] leading-[28px] text-[#11263C]">
+          <h1 className="font-[500] text-[28px] leading-[28px] text-[#11263C] mb-1">
             Data Trend
           </h1>
 
@@ -878,7 +879,7 @@ const Dashboard = () => {
 
       <div className="flex flex-col gap-2 mt-4">
         <div className="flex items-center gap-1">
-          <h1 className="font-[500] text-[28px] leading-[28px] text-[#11263C]">
+          <h1 className="font-[500] text-[28px] leading-[28px] text-[#11263C] mb-1">
             Activity
           </h1>
 
@@ -907,7 +908,7 @@ const Dashboard = () => {
               Download Data
             </Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px] p-6">
+          <DialogContent className="w-4/5 max-w-[auto] rounded-md border-none sm:max-w-[425px] p-6">
             <DialogHeader>
               <DialogTitle>
                 <h1 className="font-[500] text-[24px] leading-[28px] text-[#11263C]">
@@ -1132,7 +1133,7 @@ const Dashboard = () => {
 
       <div className="flex flex-col gap-2">
         <Dialog open={isInitailDialogBoxOpen} onOpenChange={handleDialogClose}>
-          <DialogContent className="w-4/5 max-w-[auto] p-0 border-none initial-dialog ">
+          <DialogContent className="w-4/5 xl:w-9/12 max-w-[auto] p-0 border-none initial-dialog ">
             <div className="w-full max-w-[auto] h-[200px] sm:h-auto sm:w-full sm:max-h-full xl:h-auto">
               <div className="relative w-full h-[200px] initial-dialog__heading">
                 <img
