@@ -38,7 +38,7 @@ const AboutUs = () => {
           {statsData.map((stat) => (
             <div
               key={stat.id}
-              className="flex flex-col items-center justify-center"
+              className="flex flex-col items-center justify-start"
             >
               <div className="text-[20px] md:text-[14px] md:leading-[20px] lg:text-[30px] lg:leading-[28.16px] leading-[28.16px] md:p-2 lg:p-[10px] p-[10px] text-justify font-semibold text-custom-light-green">
                 {stat.title}
