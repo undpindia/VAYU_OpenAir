@@ -6,10 +6,26 @@ from django.utils.translation import gettext_lazy as _
 
 from .forms import UserChangeForm, UserCreationForm, AdminUserCreationForm
 
+from django_celery_beat.models import (
+    IntervalSchedule,
+    CrontabSchedule,
+    SolarSchedule,
+    ClockedSchedule,
+    PeriodicTask,
+)
+
+from django_celery_results.models import TaskResult
+
 User = get_user_model()
 
 
 admin.site.unregister(Group)
+admin.site.unregister(SolarSchedule)
+admin.site.unregister(ClockedSchedule)
+admin.site.unregister(PeriodicTask)
+admin.site.unregister(IntervalSchedule)
+admin.site.unregister(CrontabSchedule)
+admin.site.unregister(TaskResult)
 
 
 @admin.register(User)

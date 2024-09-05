@@ -11,6 +11,7 @@ from rangefilter.filters import (
 from import_export.admin import ImportExportModelAdmin
 
 from .models import Device, Data, DownloadData, DownloadMonthYear
+from .tasks import export_data_to_csv
 
 from utils.csv_export import export_as_csv
 
@@ -62,7 +63,16 @@ class DataAdmin(ImportExportModelAdmin):
                    )
     readonly_fields=("lat", "long", "pm_25","pm_10", "no2", "co", "co2", "ch4", "temp", "rh", "time_seconds")
     exclude = ["data_created_time"]
-    actions = [export_as_csv]
+    
+    def export_as_mail_csv(self, request, queryset):
+        user_email = request.user.email
+        file_name = f'{user_email}_data_export'
+        task = export_data_to_csv.delay(list(queryset.values_list('pk', flat=True)), user_email, file_name)
+        
+        self.message_user(request, "Export task started. You will receive an email with the download link once it's ready.")
+
+    export_as_mail_csv.short_description = "Export Selected as CSV in mail"
+    actions = [export_as_csv, export_as_mail_csv]
     
     def has_add_permission(self, request, obj=None):
         if request.user.role == 1:

@@ -27,6 +27,7 @@ from drf_yasg import openapi
 
 from user.views import CustomTokenObtainPairView
 from mobile_app.views import get_district, get_state
+from sensor.views import download_file
 
 import config
 
@@ -78,6 +79,7 @@ urlpatterns = (
         # use for dropdown menu in Task model
         path('get_district/', get_district, name='get_district'),
         path('get_state/', get_state, name='get_state'),
+        path('media/<path:file_path>/', download_file, name='download_file'),
     ]
     + swagger_url_patterns
 )
