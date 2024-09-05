@@ -679,8 +679,10 @@ export default function MapLibreHeatmap({
                 style={{
                   width: selectedMarker === point && !isSensorClose ? '30px' : '20px', // Adjust size based on conditions
                   height: selectedMarker === point && !isSensorClose ? '30px' : '20px',
-                  transition: 'width 0.2s ease, height 0.2s ease', // Smooth transition
+                  transition: 'width 0.2s ease, height 0.2s ease',
                   cursor: 'pointer',
+                  border: selectedMarker === point && !isSensorClose ? '2px solid rgba(0, 0, 0, 0.5)' : 'none', // Add border when selected
+                  borderRadius: '50%',
                 }}
               />
             </Marker>
@@ -695,7 +697,7 @@ export default function MapLibreHeatmap({
             anchor={popup.anchor}
           >
             <div className="custom-popup">
-              <div className="w-[600px] h-[auto] bg-[#FFF] p-1 overflow-auto no-scrollbar">
+              <div className="w-[auto] sm:w-[600px] md:w-[600px] xl:w-[600px] h-[200px] sm:h-[auto] md:h-[auto] xl:h-[auto] bg-[#FFF] p-1 overflow-auto no-scrollbar">
                 <div>
                   <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
                     <div className="text-lg sm:text-xl font-semibold text-custom-green mb-2.5">
@@ -725,7 +727,7 @@ export default function MapLibreHeatmap({
                   {dataDevices.map((device) => (
                     <div
                       key={device.id}
-                      className="w-full h-[60px] bg-white p-2 rounded-lg shadow-md flex items-center"
+                      className="w-[auto] h-[60px] bg-white p-2 rounded-lg shadow-md flex items-center"
                       // style={device.isData ? {} : {display: "none"}}
                     >
                       <div className="text-xl sm:text-2xl mr-2 w-[30px]">
@@ -748,7 +750,7 @@ export default function MapLibreHeatmap({
                   ))}
                 </div>
                 <div className="mb-5">
-                  <span className="flex justify-between items-center mb-1">
+                  <span className="flex justify-between items-center mb-1 gap-5 text-right	">
                     <h3 className="text-lg sm:text-xl font-semibold text-custom-green mb-1">
                       Description
                     </h3>
