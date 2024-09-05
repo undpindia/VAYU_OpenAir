@@ -2,7 +2,7 @@
 
 const DataCollection = () => {
   return (
-    <div className="w-full flex justify-center items-start flex-col">
+    <div className="relative top-[10%] w-full flex justify-center items-start flex-col">
       <span className="font-normal text-[20px] p-[20px] md:text-[14px] md:leading-[20px]  lg:text-[24px] lg:leading-[28.16px] leading-[28.16px] md:p-2 lg:p-[20px] text-justify invisible sm:hidden">
         <span className="font-semibold">Activity 1 :</span> Identification of
         Risk Zones: Use primary and secondary air quality data to identify

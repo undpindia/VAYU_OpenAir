@@ -111,7 +111,7 @@ const Sections = () => {
               <div
                 className={`${
                   section.title === 'DATA COLLECTION' &&
-                  'h-screen overflow-auto no-scrollbar mt-4'
+                  'h-full overflow-auto thin-scrollbar mt-40'
                 }`}
               >
                 {section.content}
