@@ -113,7 +113,7 @@ const ActivityGraph = ({ data }) => {
         visible: true,
         x: tooltipX,
         y: tooltipY,
-        content: `Date: ${moment(value.date).format('DD.MM.YYYY')} | Count: ${value.count}`,
+        content: `Date : ${moment(value.date).format('DD.MM.YYYY')}  |  Count : ${value.count}`,
       });
     } else {
       const rect = event.target.getBoundingClientRect();
