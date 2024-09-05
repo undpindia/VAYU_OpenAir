@@ -153,6 +153,10 @@
   background-color: rgba(61, 148, 78, 0.38);
 }
 
+.toggle-button {
+  display: none;
+}
+
 .initial-dialog {
   height: auto;
   border-radius: 6px;
@@ -218,7 +222,7 @@
     position: relative;
     width: 100%;
     height: auto;
-    bottom: 164px;
+    bottom: 250px;
     right: 0;
     padding: 12px;
     gap: 7.07px;
@@ -227,7 +231,6 @@
     opacity: 0px;
     background-color: #ffffff;
   }
-  
   .color-scale {
     display: flex;
     flex-direction: column;
@@ -240,10 +243,6 @@
       margin-bottom: 10px;
       font-size: 12px;
     }
-
-    .header-button{
-
-    }
   }
   .static-sensor-container{
     width: 100%;
@@ -254,7 +253,7 @@
     position: relative;
     width: auto;
     height: auto;
-    bottom: 80px;
+    bottom: 170px;
     right: 0px;
     padding: 12px;
     gap: 7.07px;
@@ -272,4 +271,23 @@
     gap: 5px;
     flex-direction: column-reverse;
   }
+  .toggle-button {
+    display: block;
+    z-index: 1;
+    position: relative;
+    width: auto;
+    height: auto;
+    bottom: 55px;
+    // left: 10px;
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-align: center;
+    color: #626d7d;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
 }
+
