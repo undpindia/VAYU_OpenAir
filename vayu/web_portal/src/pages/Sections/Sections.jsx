@@ -4,7 +4,7 @@ import AboutUs from './AboutUs/AboutUs';
 import OurPartners from './OurPartners/OurPartners';
 import DataCollection from './DataCollection/DataCollection';
 import Feedback from './Feedback/Feedback';
-import OpenDataStack from './OpenDataStack/OpenDataStack';
+// import OpenDataStack from './OpenDataStack/OpenDataStack';
 import CitizenScientist from './CitizenScientist/CitizenScientist';
 // import KnowledgeHub from './KnowledgeHub/KnowledgeHub';
 
@@ -30,10 +30,10 @@ const Sections = () => {
       title: 'DATA COLLECTION',
       content: <DataCollection />,
     },
-    {
-      title: 'OPEN DATA STACK',
-      content: <OpenDataStack />,
-    },
+    // {
+    //   title: 'OPEN DATA STACK',
+    //   content: <OpenDataStack />,
+    // },
     {
       title: 'CITIZEN SCIENTIST VOLUNTEERS',
       content: <CitizenScientist />,
@@ -111,7 +111,7 @@ const Sections = () => {
               <div
                 className={`${
                   section.title === 'DATA COLLECTION' &&
-                  'h-full overflow-auto no-scrollbar mt-4'
+                  'h-screen overflow-auto no-scrollbar mt-4'
                 }`}
               >
                 {section.content}
