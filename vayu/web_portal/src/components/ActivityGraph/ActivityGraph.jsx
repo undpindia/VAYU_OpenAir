@@ -1,9 +1,8 @@
 import CalendarHeatmap from 'react-calendar-heatmap';
 import 'react-calendar-heatmap/dist/styles.css';
 import './ActivityGraph.scss';
-import { Fragment, useState, useMemo } from 'react';
+import { Fragment, useState } from 'react'; //useMemo
 import moment from 'moment';
-
 
 const colorScaleSummary = (number) => {
   if (number <= 500) return 'color-scale-0';
@@ -38,63 +37,63 @@ const ActivityGraph = ({ data }) => {
     return { startDate, endDate };
   };
 
-  const ranges = [
-    { min: 0, max: 500, colorClass: 'color-scale-0' },
-    { min: 501, max: 1000, colorClass: 'color-scale-1' },
-    { min: 1001, max: 1500, colorClass: 'color-scale-2' },
-    { min: 1501, max: 2000, colorClass: 'color-scale-3' },
-    { min: 2001, max: 2500, colorClass: 'color-scale-4' },
-    { min: 2501, max: 3000, colorClass: 'color-scale-5' },
-    { min: 3001, max: 3500, colorClass: 'color-scale-6' },
-    { min: 3501, max: 4000, colorClass: 'color-scale-7' },
-    { min: 4001, max: 4500, colorClass: 'color-scale-8' },
-    { min: 4501, max: 5000, colorClass: 'color-scale-9' },
-    { min: 5001, max: 5500, colorClass: 'color-scale-10' },
-    { min: 5501, max: 6000, colorClass: 'color-scale-11' },
-    { min: 6001, max: 6500, colorClass: 'color-scale-12' },
-    { min: 6501, max: 7000, colorClass: 'color-scale-13' },
-    { min: 7001, max: 7500, colorClass: 'color-scale-14' },
-    { min: 7501, max: Infinity, colorClass: 'color-scale-15' },
-  ];
+  // const ranges = [
+  //   { min: 0, max: 500, colorClass: 'color-scale-0' },
+  //   { min: 501, max: 1000, colorClass: 'color-scale-1' },
+  //   { min: 1001, max: 1500, colorClass: 'color-scale-2' },
+  //   { min: 1501, max: 2000, colorClass: 'color-scale-3' },
+  //   { min: 2001, max: 2500, colorClass: 'color-scale-4' },
+  //   { min: 2501, max: 3000, colorClass: 'color-scale-5' },
+  //   { min: 3001, max: 3500, colorClass: 'color-scale-6' },
+  //   { min: 3501, max: 4000, colorClass: 'color-scale-7' },
+  //   { min: 4001, max: 4500, colorClass: 'color-scale-8' },
+  //   { min: 4501, max: 5000, colorClass: 'color-scale-9' },
+  //   { min: 5001, max: 5500, colorClass: 'color-scale-10' },
+  //   { min: 5501, max: 6000, colorClass: 'color-scale-11' },
+  //   { min: 6001, max: 6500, colorClass: 'color-scale-12' },
+  //   { min: 6501, max: 7000, colorClass: 'color-scale-13' },
+  //   { min: 7001, max: 7500, colorClass: 'color-scale-14' },
+  //   { min: 7501, max: Infinity, colorClass: 'color-scale-15' },
+  // ];
 
-  const getColor = (colorClass) => {
-    const colorMap = {
-      'color-scale-0': '#D7EED2', // 0 to 500
-      'color-scale-1': '#D1ECC8', // 501 to 1000
-      'color-scale-2': '#CBEAC5', // 1001 to 1500
-      'color-scale-3': '#B5E1B0', // 1501 to 2000
-      'color-scale-4': '#AEDDA9', // 2001 to 2500
-      'color-scale-5': '#93CF91', // 2501 to 3000
-      'color-scale-6': '#75BD78', // 3001 to 3500
-      'color-scale-7': '#80C481', // 3501 to 4000
-      'color-scale-8': '#6CB771', // 4001 to 4500
-      'color-scale-9': '#61B068', // 4501 to 5000
-      'color-scale-10': '#59AA62', // 5001 to 5500
-      'color-scale-11': '#4FA25A', // 5501 to 6000
-      'color-scale-12': '#3D944E', // 6001 to 6500
-      'color-scale-13': '#2D8643', // 6501 to 7000
-      'color-scale-14': '#1A6F33', // 7001 to 7500
-      'color-scale-15': '#1A6F33', // 7501 to Infinity
-      'color-empty': '#ECF2EA', // Default or empty
-    };
-    return colorMap[colorClass] || '#ECF2EA';
-  };
+  // const getColor = (colorClass) => {
+  //   const colorMap = {
+  //     'color-scale-0': '#D7EED2', // 0 to 500
+  //     'color-scale-1': '#D1ECC8', // 501 to 1000
+  //     'color-scale-2': '#CBEAC5', // 1001 to 1500
+  //     'color-scale-3': '#B5E1B0', // 1501 to 2000
+  //     'color-scale-4': '#AEDDA9', // 2001 to 2500
+  //     'color-scale-5': '#93CF91', // 2501 to 3000
+  //     'color-scale-6': '#75BD78', // 3001 to 3500
+  //     'color-scale-7': '#80C481', // 3501 to 4000
+  //     'color-scale-8': '#6CB771', // 4001 to 4500
+  //     'color-scale-9': '#61B068', // 4501 to 5000
+  //     'color-scale-10': '#59AA62', // 5001 to 5500
+  //     'color-scale-11': '#4FA25A', // 5501 to 6000
+  //     'color-scale-12': '#3D944E', // 6001 to 6500
+  //     'color-scale-13': '#2D8643', // 6501 to 7000
+  //     'color-scale-14': '#1A6F33', // 7001 to 7500
+  //     'color-scale-15': '#1A6F33', // 7501 to Infinity
+  //     'color-empty': '#ECF2EA', // Default or empty
+  //   };
+  //   return colorMap[colorClass] || '#ECF2EA';
+  // };
 
   // Get the active ranges based on the actual data
-  const activeRanges = useMemo(() => {
-    const counts = Object.values(selectedData.data)
-      .flat()
-      .map((d) => d.count);
-    const min = Math.min(...counts);
-    const max = Math.max(...counts);
+  // const activeRanges = useMemo(() => {
+  //   const counts = Object.values(selectedData.data)
+  //     .flat()
+  //     .map((d) => d.count);
+  //   const min = Math.min(...counts);
+  //   const max = Math.max(...counts);
 
-    return ranges.filter(
-      (range) =>
-        (range.min <= max && range.max >= min) ||
-        (range.min >= min && range.max <= max)
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedData]);
+  //   return ranges.filter(
+  //     (range) =>
+  //       (range.min <= max && range.max >= min) ||
+  //       (range.min >= min && range.max <= max)
+  //   );
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [selectedData]);
 
   const [tooltip, setTooltip] = useState({
     visible: false,
@@ -113,7 +112,9 @@ const ActivityGraph = ({ data }) => {
         visible: true,
         x: tooltipX,
         y: tooltipY,
-        content: `Date : ${moment(value.date).format('DD.MM.YYYY')}  |  Count : ${value.count}`,
+        content: `Date : ${moment(value.date).format(
+          'DD.MM.YYYY'
+        )}  |  Count : ${value.count}`,
       });
     } else {
       const rect = event.target.getBoundingClientRect();
@@ -175,7 +176,7 @@ const ActivityGraph = ({ data }) => {
           {startDate} - {endDate}
         </p>
       </div>
-      <div className="flex justify-start md:justify-center items-center space-x-8 overflow-x-auto py-4 no-scrollbar">
+      <div className="flex justify-start items-center space-x-8 overflow-x-auto py-4 no-scrollbar">
         {Object.entries(selectedData.data).map(([month, monthData]) => {
           const { startDate, endDate } = getMonthDates(selectedYear, month);
 
@@ -224,24 +225,22 @@ const ActivityGraph = ({ data }) => {
           Data Point Trends
         </div> */}
         <div className="relative flex items-center w-[50%] h-4 border border-gray-300 rounded-sm">
-          <div
+          {/* <div
             className="w-full h-full rounded-sm"
-            // style={{
-            //   background: `linear-gradient(to right, ${activeRanges
-            //     .map((range) => `${getColor(range.colorClass)}`)
-            //     .join(', ')})`,
-            // }}
             style={{
               background: `linear-gradient(to right, #ECF2EA, ${activeRanges
                 .map((range) => `${getColor(range.colorClass)}`)
                 .join(', ')})`,
             }}
-            // title={activeRanges
-            //   .map((range) => `${range.min} - ${range.max}`)
-            //   .join(', ')}
-          >
+          ></div> */}
 
-          </div>
+          <div
+            className="w-full h-full rounded-sm"
+            style={{
+              background: `linear-gradient(to right, #ECF2EA,  #D7EED2,  #D1ECC8, #CBEAC5,  #B5E1B0, #AEDDA9,  #93CF91,  #75BD78,  #80C481,  #6CB771,  #61B068,  #59AA62,  #4FA25A, #3D944E,  #2D8643,  #1A6F33,  #1A6F33)`,
+            }}
+          ></div>
+
           {/* Markers for each range */}
           {/* {activeRanges.map((range, index) => (
             <div

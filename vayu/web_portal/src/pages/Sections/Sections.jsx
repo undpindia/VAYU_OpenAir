@@ -87,7 +87,7 @@ const Sections = () => {
       </div>
 
       {/* RIGHT SIDE */}
-      <div className="w-full md:w-1/2 p-8 overflow-y-scroll scroll-container no-scrollbar">
+      <div className="w-full md:w-1/2 p-0 overflow-y-scroll scroll-container no-scrollbar">
         {sections.map((section, index) => (
           <motion.div
             key={index}

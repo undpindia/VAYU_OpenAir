@@ -1,6 +1,6 @@
 const AboutUs = () => {
   return (
-    <div className="w-full flex justify-center items-start flex-col md:mt-[50%] lg:mt-0">
+    <div className="w-full flex justify-center items-start flex-col md:mt-[50%] sm:mt-[70px] lg:mt-0">
       <h1 className="font-bold text-[20px] md:text-[14px] md:leading-[20px]  lg:text-[24px] lg:leading-[28.16px] leading-[28.16px] md:p-2 lg:p-[20px] p-[20px] text-justify">
         Hyperlocal Mapping of Air Pollution and GHG emissions
       </h1>
