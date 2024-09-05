@@ -18,6 +18,14 @@ app.conf.beat_schedule = {
         'task':'mobile_app.tasks.insert_record_pmtiles',
         'schedule':crontab(minute=1, hour=0),
     }, 
+    'insert-heatmap-every-night':{
+        'task':'sensor.tasks.insert_heatmap_pmtiles',
+        'schedule':crontab(minute=10, hour=0),
+    },
+    'insert-data-csv-every-midnight':{
+        'task':'sensor.insert_data_download_csv',
+        'schedule':crontab(minute=25, hour=18),
+    },
 }
 
 app.autodiscover_tasks()
