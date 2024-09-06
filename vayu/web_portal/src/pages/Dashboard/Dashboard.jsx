@@ -77,7 +77,7 @@ const Dashboard = () => {
     device_type: '',
   });
   const [formDownloadMonths, setFormDownloadMonths] = useState({
-    from_month: '',
+    month: '',
     year: '',
   });
   const queryParams = {
@@ -444,7 +444,7 @@ const Dashboard = () => {
 
     setFormDownloadMonths({
       ...formDownload,
-      from_month: month,
+      month: month,
       year: year,
     });
 
@@ -489,8 +489,8 @@ const Dashboard = () => {
     // Add validation
     if (currentStep === 1) {
       let step1Errors = {};
-      if (!formDownloadMonths.from_month && !formDownloadMonths.year)
-        step1Errors.from_month = 'Month is required';
+      if (!formDownloadMonths.month && !formDownloadMonths.year)
+        step1Errors.month = 'Month is required';
       if (!formDownload.city) step1Errors.city = 'City is required';
       if (!formDownload.device_type)
         step1Errors.device_type = 'Device type is required';
@@ -530,8 +530,8 @@ const Dashboard = () => {
       errors.purpose = 'Purpose is required';
     }
 
-    if (!formDownloadMonths.from_month && !formDownloadMonths.year) {
-      errors.from_month = 'Month is required';
+    if (!formDownloadMonths.month && !formDownloadMonths.year) {
+      errors.month = 'Month is required';
     }
     if (!formDownload.city) {
       errors.city = 'City is required';
@@ -546,7 +546,7 @@ const Dashboard = () => {
       return;
     }
     const params = {
-      from_month: formDownloadMonths.from_month,
+      month: formDownloadMonths.month,
       year: formDownloadMonths.year,
       city: formDownload.city,
       device_type: formDownload.device_type,
@@ -955,9 +955,9 @@ const Dashboard = () => {
                     Month
                   </Label>
                   <Select
-                    value={formDownload.from_month}
+                    value={formDownload.month}
                     onValueChange={(value) =>
-                      handleSelectMonths('from_month', value)
+                      handleSelectMonths('month', value)
                     }
                   >
                     <SelectTrigger className="font-normal text-[14px]">
@@ -977,9 +977,9 @@ const Dashboard = () => {
                     </SelectContent>
                   </Select>
                 </div>
-                {errors.from_month && (
+                {errors.month && (
                   <p className="text-red-500 text-sm mt-1">
-                    {errors.from_month}
+                    {errors.month}
                   </p>
                 )}
                 <div className="flex flex-col w-full">
