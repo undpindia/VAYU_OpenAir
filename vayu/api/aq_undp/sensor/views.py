@@ -763,7 +763,7 @@ class DataDownloadBlobViewset(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         try:
-            from_month = request.data.get('from_month')
+            from_month = request.data.get('month')
             device_type = request.data.get('device_type')
             city = request.data.get('city')
             year = request.data.get('year')
