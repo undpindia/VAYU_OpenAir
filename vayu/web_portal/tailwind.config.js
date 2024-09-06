@@ -30,6 +30,7 @@ module.exports = {
       },
       colors: {
         'custom-green': '#31572C',
+        'custom-light-green': '#3D944E',
         'custom-grey1': '#7B7B7B',
         'custom-grey2': '#434343',
         border: 'hsl(var(--border))',
@@ -98,6 +99,21 @@ module.exports = {
         },
         '.no-scrollbar::-webkit-scrollbar': {
           display: 'none' /* Safari and Chrome */,
+        },
+        '.thin-scrollbar': {
+          '&::-webkit-scrollbar': {
+            width: '5px' /* For Webkit browsers */,
+          },
+          '&::-webkit-scrollbar-thumb': {
+            backgroundColor: '#888' /* Custom color for the scrollbar thumb */,
+            borderRadius: '10px' /* Rounded corners for the scrollbar thumb */,
+          },
+          '&::-webkit-scrollbar-track': {
+            backgroundColor:
+              '#f1f1f1' /* Custom color for the scrollbar track */,
+            borderRadius: '10px' /* Rounded corners for the scrollbar track */,
+          },
+          '-ms-overflow-style': 'auto' /* IE and Edge */,
         },
       });
     }),

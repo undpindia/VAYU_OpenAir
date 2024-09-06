@@ -4,7 +4,7 @@ import AboutUs from './AboutUs/AboutUs';
 import OurPartners from './OurPartners/OurPartners';
 import DataCollection from './DataCollection/DataCollection';
 import Feedback from './Feedback/Feedback';
-import OpenDataStack from './OpenDataStack/OpenDataStack';
+// import OpenDataStack from './OpenDataStack/OpenDataStack';
 import CitizenScientist from './CitizenScientist/CitizenScientist';
 // import KnowledgeHub from './KnowledgeHub/KnowledgeHub';
 
@@ -30,10 +30,10 @@ const Sections = () => {
       title: 'DATA COLLECTION',
       content: <DataCollection />,
     },
-    {
-      title: 'OPEN DATA STACK',
-      content: <OpenDataStack />,
-    },
+    // {
+    //   title: 'OPEN DATA STACK',
+    //   content: <OpenDataStack />,
+    // },
     {
       title: 'CITIZEN SCIENTIST VOLUNTEERS',
       content: <CitizenScientist />,
@@ -68,13 +68,13 @@ const Sections = () => {
     <div className="flex flex-col md:flex-row min-h-screen md:max-h-screen xl:max-h-screen overflow-hidden">
       {/* LEFT SIDE */}
       <div className="hidden md:block md:w-1/2 bg-white">
-        <div className="h-full bg-white flex flex-col items-start justify-center">
-          <div className="space-y-2">
+        <div className="h-full bg-white flex flex-col items-start justify-center md:mt-6 lg:mt-0">
+          <div className="space-y-6 lg:space-y-6 md:space-y-2">
             {sections.map((section, index) => (
               <h1
                 key={index}
                 onClick={() => handleSectionClick(index)}
-                className={`text-[60px] leading-[73.8px] tracking-[0.04em] cursor-pointer font-bold `}
+                className={`text-[60px] md:text-[35px] lg:text-[55px] leading-[73.8px] lg:leading-[55px] md:leading-[40px] tracking-[0.04em] cursor-pointer font-bold `}
                 style={{
                   color: selectedSection === index ? '#31572C' : '#A6C9A1',
                 }}
@@ -87,7 +87,7 @@ const Sections = () => {
       </div>
 
       {/* RIGHT SIDE */}
-      <div className="w-full md:w-1/2 p-8 overflow-y-scroll scroll-container no-scrollbar">
+      <div className="w-full md:w-1/2 p-0 overflow-y-scroll scroll-container no-scrollbar">
         {sections.map((section, index) => (
           <motion.div
             key={index}
@@ -101,7 +101,9 @@ const Sections = () => {
             <div className="w-full h-full flex flex-col items-center justify-center md:flex-row">
               <h1
                 onClick={() => handleSectionClick(index)}
-                className={`cursor-pointer text-2xl font-bold md:hidden mt-20 mb-4`}
+                className={`cursor-pointer text-2xl font-bold md:hidden ${
+                  index === 0 ? 'mt-24' : 'mt-10 text-center'
+                } mb-4`}
                 style={{
                   color: selectedSection === index ? '#31572C' : '#A6C9A1',
                 }}
