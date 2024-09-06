@@ -1,12 +1,14 @@
 import datetime
 import csv
 import logging
+import os
 
 from django.shortcuts import render
 from django.contrib.auth import get_user_model
 from django.db.models.functions import TruncMonth, TruncYear, TruncDay
 from django.db.models import Count, Max, Min, Avg, Variance, StdDev, Aggregate, FloatField
-from django.http import HttpResponse, StreamingHttpResponse
+from django.http import HttpResponse, StreamingHttpResponse, Http404
+from django.core.files.storage import default_storage
 
 from rest_framework import viewsets, status
 from rest_framework.response import Response
@@ -761,7 +763,7 @@ class DataDownloadBlobViewset(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         try:
-            from_month = request.data.get('from_month')
+            from_month = request.data.get('month')
             device_type = request.data.get('device_type')
             city = request.data.get('city')
             year = request.data.get('year')
@@ -1081,3 +1083,14 @@ class DownloadMonthYearViewset(viewsets.ModelViewSet):
                 },
                 status.HTTP_400_BAD_REQUEST
             )         
+
+
+def download_file(request, file_path):
+    if not default_storage.exists(file_path):
+        raise Http404("File not found.")
+
+    file_name = os.path.basename(file_path)
+    response = HttpResponse(default_storage.open(file_path).read(), content_type='text/csv')
+    response['Content-Disposition'] = f'attachment; filename={file_name}'
+    
+    return response
