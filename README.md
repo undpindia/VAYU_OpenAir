@@ -1,4 +1,4 @@
-![alt text](https://github.com/undpindia/VAYU_OpenAir/blob/main/vayu_logo.png?raw=true)
+![alt text](https://github.com/undpindia/VAYU_OpenAir/blob/main/vayu_banner.png?raw=true)
 
 
 #  VAYU - OpenAir
