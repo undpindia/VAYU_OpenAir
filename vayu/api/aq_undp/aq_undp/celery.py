@@ -23,7 +23,7 @@ app.conf.beat_schedule = {
         'schedule':crontab(minute=10, hour=0),
     },
     'insert-data-csv-every-midnight':{
-        'task':'sensor.insert_data_download_csv',
+        'task':'sensor.tasks.insert_data_download_csv',
         'schedule':crontab(minute=25, hour=18),
     },
 }
