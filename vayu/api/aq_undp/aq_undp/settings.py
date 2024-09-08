@@ -181,12 +181,12 @@ SWAGGER_SETTINGS = {
     "USE_SESSION_AUTH": False,
 }
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-FROM_EMAIL = "VAYU<vayuadmin@misteo.co>"
-SMTP_HOST = 'smtp.sendgrid.net'
-SMTP_PORT = 587
-SMTP_USERNAME = 'apikey'
-SMTP_PASSWORD = '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'
+EMAIL_BACKEND = config.EMAIL_BACKEND
+FROM_EMAIL = config.FROM_EMAIL
+SMTP_HOST = config.SMTP_HOST
+SMTP_PORT = config.SMTP_PORT
+SMTP_USERNAME = config.SMTP_USERNAME
+SMTP_PASSWORD = config.SMTP_PASSWORD
 
 # Logging
 LOGGING = {
