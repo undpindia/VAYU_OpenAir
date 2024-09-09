@@ -77,7 +77,7 @@ const Dashboard = () => {
     device_type: '',
   });
   const [formDownloadMonths, setFormDownloadMonths] = useState({
-    from_month: '',
+    month: '',
     year: '',
   });
   const queryParams = {
@@ -292,9 +292,7 @@ const Dashboard = () => {
     try {
       const response = await getMonth();
       if (response.data.code === 200 && response.data.success === true) {
-        const sortedDevices = response.data.device_count.sort(
-          (a, b) => a.id - b.id
-        );
+        const sortedDevices = response.data.device_count.sort((a, b) => a.id - b.id);
         const formattedMonths = sortedDevices.map((device) => ({
           label: `${device.month} ${device.year}`,
           month: device.month,
@@ -446,7 +444,7 @@ const Dashboard = () => {
 
     setFormDownloadMonths({
       ...formDownload,
-      from_month: month,
+      month: month,
       year: year,
     });
 
@@ -491,8 +489,8 @@ const Dashboard = () => {
     // Add validation
     if (currentStep === 1) {
       let step1Errors = {};
-      if (!formDownloadMonths.from_month && !formDownloadMonths.year)
-        step1Errors.from_month = 'Month is required';
+      if (!formDownloadMonths.month && !formDownloadMonths.year)
+        step1Errors.month = 'Month is required';
       if (!formDownload.city) step1Errors.city = 'City is required';
       if (!formDownload.device_type)
         step1Errors.device_type = 'Device type is required';
@@ -532,8 +530,8 @@ const Dashboard = () => {
       errors.purpose = 'Purpose is required';
     }
 
-    if (!formDownloadMonths.from_month && !formDownloadMonths.year) {
-      errors.from_month = 'Month is required';
+    if (!formDownloadMonths.month && !formDownloadMonths.year) {
+      errors.month = 'Month is required';
     }
     if (!formDownload.city) {
       errors.city = 'City is required';
@@ -548,7 +546,7 @@ const Dashboard = () => {
       return;
     }
     const params = {
-      from_month: formDownloadMonths.from_month,
+      month: formDownloadMonths.month,
       year: formDownloadMonths.year,
       city: formDownload.city,
       device_type: formDownload.device_type,
@@ -602,8 +600,7 @@ const Dashboard = () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
-  const displayStyle =
-    windowWidth < 500 ? (isContentVisible ? 'block' : 'none') : 'block';
+  const displayStyle = windowWidth < 500 ? (isContentVisible ? 'block' : 'none') : 'block';
   return (
     <div className="relative top-[102px] flex flex-col gap-4 min-h-screen md:max-h-screen xl:max-h-screen thin-scrollbar">
       <div className="flex flex-col border rounded-sm p-4">
@@ -742,28 +739,20 @@ const Dashboard = () => {
             isSensorClose={isSensorClose}
           />
           <div className="relative">
-            <div
+          <div 
               className="toggle-button"
               onClick={handleToggleColorScale}
-              style={{
-                bottom: isContentVisible ? '45px' : '',
-                backgroundColor: isContentVisible ? '' : '#fff',
-                left: isContentVisible ? '-10px' : '10px',
-              }}
+              style={{bottom: isContentVisible ? "45px": "",
+                 backgroundColor:isContentVisible ?  "" : "#fff",
+                 left:isContentVisible ?  "-10px" : "10px" }}
             >
-              {isContentVisible ? (
-                <img src={Close} className="h-7" />
-              ) : (
-                'Show legend'
-              )}
-            </div>
+              {isContentVisible ? <img src={Close} className='h-7'/> : 'Show legend'} 
+          </div>       
             {selectedSensorType === 'static' ? (
               ''
             ) : (
-              <div
-                className="color-scale-container"
-                style={{ display: displayStyle }}
-              >
+              <div className='color-scale-container'  
+              style={{ display: displayStyle }}>
                 <div className="color-scale-card">
                   <div className="data-density-div">
                     <div className="data-density">
@@ -819,37 +808,34 @@ const Dashboard = () => {
             )}
 
             {selectedSensorType === 'static' ? (
-              <div
-                className="static-sensor-container"
-                style={{ display: displayStyle }}
-              >
-                <div className="static-sensor-card">
-                  <div className="static-sensor-div">
-                    <div className="static-sensor">
-                      <img
-                        src={MarkerRed}
-                        className="static-sensot-icon"
-                        alt="static-sensor"
-                        style={{ width: '25px' }}
-                      />
-                      <span>Static Data Points</span>
-                    </div>
-                    <div
-                      className="static-sensor-show"
-                      onClick={handleStaticClick}
+              <div className='static-sensor-container'  style={{ display: displayStyle }}>
+              <div className="static-sensor-card">
+                <div className="static-sensor-div">
+                  <div className="static-sensor">
+                    <img
+                      src={MarkerRed}
+                      className="static-sensot-icon"
+                      alt="static-sensor"
+                      style={{ width: '25px' }}
+                    />
+                    <span>Static Data Points</span>
+                  </div>
+                  <div
+                    className="static-sensor-show"
+                    onClick={handleStaticClick}
+                  >
+                    <Tippy
+                      placement={'right-end'}
+                      theme={'dark'}
+                      content={'Show/Hide'}
+                      arrow={false}
+                      className="zoom-bounds-tooltip"
                     >
-                      <Tippy
-                        placement={'right-end'}
-                        theme={'dark'}
-                        content={'Show/Hide'}
-                        arrow={false}
-                        className="zoom-bounds-tooltip"
-                      >
-                        <img src={isStaticVisible ? EyeShow : EyeHide} />
-                      </Tippy>
-                    </div>
+                      <img src={isStaticVisible ? EyeShow : EyeHide} />
+                    </Tippy>
                   </div>
                 </div>
+              </div>
               </div>
             ) : (
               ''
@@ -969,9 +955,9 @@ const Dashboard = () => {
                     Month
                   </Label>
                   <Select
-                    value={formDownload.from_month}
+                    value={formDownload.month}
                     onValueChange={(value) =>
-                      handleSelectMonths('from_month', value)
+                      handleSelectMonths('month', value)
                     }
                   >
                     <SelectTrigger className="font-normal text-[14px]">
@@ -991,9 +977,9 @@ const Dashboard = () => {
                     </SelectContent>
                   </Select>
                 </div>
-                {errors.from_month && (
+                {errors.month && (
                   <p className="text-red-500 text-sm mt-1">
-                    {errors.from_month}
+                    {errors.month}
                   </p>
                 )}
                 <div className="flex flex-col w-full">
@@ -1248,8 +1234,8 @@ const Dashboard = () => {
                 )}
               </div>
             </div>
-            <div className="px-6 xs:p-6 initial-dialog__footer-section">
-              <DialogFooter>
+            <div className='px-6 xs:p-6 initial-dialog__footer-section'>
+            <DialogFooter>
                 <div
                   className="flex flex-col sm:flex-row justify-between items-center w-full gap-4 p-4 md:mb-6 xl:mb-0"
                   style={{ background: '#3D944E', borderRadius: '6px' }}
@@ -1282,7 +1268,7 @@ const Dashboard = () => {
                   </div>
                 </div>
               </DialogFooter>
-            </div>
+              </div>
           </DialogContent>
         </Dialog>
         <Toaster position="bottom-center" reverseOrder={false} />
