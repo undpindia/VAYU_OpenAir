@@ -772,7 +772,7 @@ class DataDownloadBlobViewset(viewsets.ModelViewSet):
             usage_type = request.data.get('usage_type')
             purpose = request.data.get('purpose')
             
-            url = config.DOWNLOAD_BLOB_URL + str(city).capitalize() + "/sensor-data/data-" + device_type + "-sensor/vayu_"+str(city).capitalize()+ "_" + device_type +"_sensor_data_"+ from_month +"_"+ year +".csv"
+            url = config.DOWNLOAD_BLOB_URL + str(city).capitalize() + "/sensor-data/data-" + device_type + "-sensor/vayu_"+str(city).capitalize()+ "_" + device_type +"_sensor_data_"+ from_month +"_"+ str(year) +".csv"
             
             DownloadData.objects.create(
                 month = from_month,
@@ -1105,7 +1105,7 @@ class DataDownloadUndpBlobViewset(viewsets.ModelViewSet):
             city = request.data.get('city')
             year = request.data.get('year')
             
-            url = config.DOWNLOAD_BLOB_URL + str(city).capitalize() + "/sensor-data/data-" + device_type + "-sensor/vayu_"+str(city).capitalize()+ "_" + device_type +"_sensor_data_"+ from_month +"_"+ year +".csv"
+            url = config.DOWNLOAD_BLOB_URL + str(city).capitalize() + "/sensor-data/data-" + device_type + "-sensor/vayu_"+str(city).capitalize()+ "_" + device_type +"_sensor_data_"+ from_month +"_"+ str(year) +".csv"
             
             return Response(
                 {
