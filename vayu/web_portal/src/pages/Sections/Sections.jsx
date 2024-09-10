@@ -113,7 +113,7 @@ const Sections = () => {
               <div
                 className={`${
                   section.title === 'DATA COLLECTION' &&
-                  'h-full overflow-auto no-scrollbar mt-4'
+                  'lg:h-full overflow-auto no-scrollbar lg:mt-44 md:h-[50%] md:mt-20'
                 }`}
               >
                 {section.content}
