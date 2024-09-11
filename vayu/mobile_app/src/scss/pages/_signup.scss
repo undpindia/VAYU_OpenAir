@@ -1,0 +1,119 @@
+.signup-container {
+  height: 100vh;
+  width: 100dvw;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: #fff;
+
+  &__logo-text {
+    margin-top: 3rem;
+    justify-content: center;
+    display: flex;
+    h1 {
+      color: #31572c;
+      font-family: 'Satoshi';
+      font-size: 64px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      text-align: center;
+    }
+  }
+
+  &__signup-card {
+    width: 100%;
+    position: absolute;
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    // padding: 10px;
+
+    &--title-signup {
+      color: #202020;
+      font-family: Satoshi;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      padding-left: 15px;
+    }
+
+    .card-sign-up {
+      width: 100%;
+      border-width: 0;
+      border-radius: 0;
+      background-color: #fff;
+    }
+
+    &--sign-in {
+        color: #31572c;
+        font-family: 'Satoshi';
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+      }
+    &--toggle-password-btn {
+        position: absolute; 
+        top: 70.8%;
+        right: 1.5rem;
+        transform: translateY(-50%);
+        cursor: pointer;
+    }
+    &--toggle-confirm-password-btn {
+        position: absolute; 
+        top: 79%;
+        right: 1.5rem;
+        transform: translateY(-50%);
+        cursor: pointer;
+    }
+
+    &--btn-sign-up {
+      color: #fff;
+      background-color: #31572c;
+      border: none;
+      width: 100%;
+      border-radius: 8px;
+      height: 48px;
+      text-align: center;
+      font-family: Satoshi;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+    }
+    &--btn-sign-up:hover {
+      color: #31572c;
+      background-color: #fff;
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid #31572c;
+    }
+    &--btn-sign-up:active {
+      color: #fff;
+      background-color: #31572c;
+      border: none;
+      width: 100%;
+      border-radius: 8px;
+      height: 48px;
+      text-align: center;
+      font-family: Satoshi;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+    }
+    &--btn-sign-up:disabled {
+      background-color: #31572c;
+      color: #fff;
+    }
+    .btn-primary {
+      --bs-btn-active-color: #fff;
+      --bs-btn-active-bg: #31572c;
+      --bs-btn-active-border-color: #31572c;
+    }
+  }
+}

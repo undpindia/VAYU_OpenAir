@@ -1,0 +1,208 @@
+// .leaflet-container {
+//   background-color: #aad3df;
+//   height: 100%;
+//   width: 100%;
+//   border-radius: 10px;
+// }
+// #icon-layer {
+//   cursor: pointer; /* Show pointer cursor on hover */
+// }
+
+.zoom-bounds{
+  z-index: 1;
+  position: absolute;
+  height: auto;
+  top: 65px;
+  left: -3px;
+  padding: 12px;
+  gap: 7.07px;
+  border-radius: 4.24px;
+  cursor: pointer;
+ img{
+  width: 31px;
+  border: solid 1px #00000033;
+  border-radius: 5px;
+ }
+}
+
+// .record-data-icon {
+//   width: 14px;             
+//   height: 14px;             
+//   border-radius: 50%;       
+//   background-color: #FFF; 
+//   border: 4px solid #3D944E;  
+//   display: flex;            
+//   align-items: center;     
+//   justify-content: center;  
+// }
+
+// hide attribute
+.maplibregl-ctrl-attrib {
+  display: none !important;
+}
+
+.device-card-div {
+  display: flex;
+  gap: 10px;
+  align-items: center; 
+  position: absolute;
+  bottom: 10px;
+  margin-left: 10px;
+}
+
+.devices-card,
+.data-points-card,
+.device-data-card {
+  height: 36px;
+  padding: 6px;
+  bottom: 10px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  background-color: #ffffff;
+  .label {
+    color: #626d7d;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19.68px;
+    text-align: left;
+  }
+  .span {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19.68px;
+    text-align: left;
+    color: #000000;
+  }
+  .device-close-btn {
+    display: inline-block;
+    width: 20px;
+    line-height: 19.68px;
+    position: relative;
+    top: -2px;
+    cursor: pointer;
+    margin-left: 5px;
+  }
+}
+.static-sensor-card {
+  z-index: 1;
+  position: absolute;
+  width: 330px;
+  height: auto;
+  bottom: 10px;
+  right: 10px;
+  padding: 12px;
+  gap: 7.07px;
+  border-radius: 4.24px;
+  border: 1px solid #cbd5e1;
+  opacity: 0px;
+  background-color: #ffffff;
+}
+.static-sensor-div{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  .static-sensor {
+    display: flex;
+    margin-top: 3.5px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 12.1px;
+    color: #626D7D;
+    vertical-align: middle;
+    font-family: Clash Grotesk;
+    font-weight: 500;
+    line-height: 19.68px;
+    .static-sensot-icon{
+      position: relative;
+      bottom: 4px;
+    }
+  }
+  .static-sensor-show {
+   cursor: pointer;
+  }
+}
+
+.legend{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  img{
+    width: 25px;
+  }
+  span{
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 12.1px;
+    text-align: left;
+    color: #626D7D;
+  }
+}
+
+.btn-zoo-bound {
+  position: relative;
+}
+
+.maplibregl-popup-content {
+  width: max-content;
+}
+
+/* CustomPopup.css */
+
+.custom-popup {
+  font-family: Clash Grotesk;
+}
+
+.custom-popup-close-btn {
+  position: absolute;
+  top: 20px;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333;
+  width: 25px;
+}
+
+.custom-popup-description{
+  font-size: 16px !important;
+  color: #7B7B7B;
+  font-style: normal;
+  font-weight: 500 !important;
+}
+
+.maplibregl-ctrl-compass{
+  display: none !important;
+}
+
+
+.maplibregl-popup.custom-popup.maplibregl-popup-anchor-right{
+  width: 500px !important;
+}
+.maplibregl-popup.custom-popup.maplibregl-popup-anchor-left{
+  width: 500px !important;
+}
+.maplibregl-popup.custom-popup.maplibregl-popup-anchor-top{
+  width: 500px !important;
+}
+
+@media screen and (min-width: 320px)  and (max-width: 500px){
+  .device-card-div {
+    max-height: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: flex-start;
+    position: absolute;
+    top: -442px;
+    margin-left: 50px;
+  }
+  .devices-card, .data-points-card, .device-data-card {
+    height: 36px;
+    width: auto;
+    padding: 6px;
+    bottom: 10px;
+    border-radius: 6px;
+    border: 1px solid #cbd5e1;
+    background-color: #ffffff;
+}
+}

@@ -1,0 +1,41 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;600&display=swap');
+
+// Variables & Mixins
+@import 'variables';
+@import 'mixins';
+
+// Bootstrap Framework
+@import 'bootstrap/scss/bootstrap';
+
+// Components
+@import 'components/bottom-nav';
+@import 'components/header';
+@import 'components/header_2';
+@import 'components/dropdown';
+@import 'components/dropdown-signup';
+@import 'components/offline-screen';
+@import 'components/data-sync-online';
+@import 'components/datepicker';
+@import 'components/approval_screen';
+
+//Pages
+@import 'pages/auth';
+@import 'pages/assigned';
+@import 'pages/data-captured';
+@import 'pages/home';
+@import 'pages/record-data';
+@import 'pages/record-location';
+@import 'pages/notification';
+@import 'pages/data-success';
+@import 'pages/signup';
+@import 'pages/forgot-password';
+
+//Plugins
+@import 'plugins/scrollbar';
+
+// Utilities
+@import 'utils';
