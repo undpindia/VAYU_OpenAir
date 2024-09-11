@@ -3,11 +3,19 @@
 const DataCollection = () => {
   return (
     <div className="relative top-[5%] w-full flex justify-center items-start flex-col">
+<<<<<<< HEAD
       {/* <span className="invisible hidden md:block font-normal text-[20px] p-[20px] md:text-[14px] md:leading-[20px] lg:text-[24px] lg:leading-[28.16px] leading-[28.16px] md:p-2 lg:p-[20px] text-justify">
         <span className="font-semibold">Activity 1 :</span> Identification of
         Risk Zones: Use primary and secondary air quality data to identify
         high-risk zones within cities.
       </span> */}
+=======
+      <span className="invisible hidden md:block font-normal text-[20px] p-[20px] md:text-[14px] md:leading-[20px] lg:text-[24px] lg:leading-[28.16px] leading-[28.16px] md:p-2 lg:p-[20px] text-justify">
+        <span className="font-semibold">Activity 1 :</span> Identification of
+        Risk Zones: Use primary and secondary air quality data to identify
+        high-risk zones within cities.
+      </span>
+>>>>>>> da0e218aa7b4dd12904c44a82e99e9b4bfa21e1c
 
       <span className="font-normal text-[20px] p-[20px] md:text-[14px] md:leading-[20px]  lg:text-[24px] lg:leading-[28.16px] leading-[28.16px] md:p-2 lg:p-[20px] text-justify">
         <span className="font-semibold">Activity 1 :</span> Identification of

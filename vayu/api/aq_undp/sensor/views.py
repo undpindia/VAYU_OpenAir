@@ -772,7 +772,11 @@ class DataDownloadBlobViewset(viewsets.ModelViewSet):
             usage_type = request.data.get('usage_type')
             purpose = request.data.get('purpose')
             
+<<<<<<< HEAD
             url = config.DOWNLOAD_BLOB_URL + str(city).capitalize() + "/sensor-data/data-" + device_type + "-sensor/vayu_"+str(city).capitalize()+ "_" + device_type +"_sensor_data_"+ from_month +"_2024.csv"
+=======
+            url = config.DOWNLOAD_BLOB_URL + str(city).capitalize() + "/sensor-data/data-" + device_type + "-sensor/vayu_"+str(city).capitalize()+ "_" + device_type +"_sensor_data_"+ from_month +"_"+ str(year) +".csv"
+>>>>>>> da0e218aa7b4dd12904c44a82e99e9b4bfa21e1c
             
             DownloadData.objects.create(
                 month = from_month,
@@ -1094,3 +1098,38 @@ def download_file(request, file_path):
     response['Content-Disposition'] = f'attachment; filename={file_name}'
     
     return response
+<<<<<<< HEAD
+=======
+
+class DataDownloadUndpBlobViewset(viewsets.ModelViewSet):
+    permission_classes = ()
+
+    def create(self, request, *args, **kwargs):
+        try:
+            from_month = request.data.get('month')
+            device_type = request.data.get('device_type')
+            city = request.data.get('city')
+            year = request.data.get('year')
+            
+            url = config.DOWNLOAD_BLOB_URL + str(city).capitalize() + "/sensor-data/data-" + device_type + "-sensor/vayu_"+str(city).capitalize()+ "_" + device_type +"_sensor_data_"+ from_month +"_"+ str(year) +".csv"
+            
+            return Response(
+                {
+                    "code": 200,
+                    "success": True,
+                    "message": get_message(200),
+                    "data": url
+                },
+                status.HTTP_200_OK
+            )
+
+        except Exception:
+            return Response(
+                {
+                    "code": 400,
+                    "success": False,
+                    "message": get_message(400)
+                },
+                status.HTTP_400_BAD_REQUEST
+            )
+>>>>>>> da0e218aa7b4dd12904c44a82e99e9b4bfa21e1c

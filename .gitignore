@@ -25,4 +25,9 @@ dist-ssr
 .env
 .env.test
 
+<<<<<<< HEAD
 package-lock.json
+=======
+package-lock.json
+vayu/api/aq_undp/config.py
+>>>>>>> da0e218aa7b4dd12904c44a82e99e9b4bfa21e1c

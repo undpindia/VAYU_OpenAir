@@ -1,0 +1,51 @@
+DATABASES = {
+       'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'DB_NAME',
+            'USER': 'DB_USER',
+            'PASSWORD': 'DB_PASSWORD',
+            'HOST': 'DB_HOST',
+            'PORT': 'DB_PORT',
+       }
+   }
+
+ALLOWED_HOSTS = ["127.0.0.1", "localhost"] # add domain name
+
+DOMAIN_NAME = 'http://localhost:8000' # add domain name
+
+DEVICE_TOKEN = "" # stay empty
+
+DEBUG = True
+
+CAPTCHA_SECRET_KEY = '' # stay empty
+CAPTCHA_SITE_KEY = '' # stay empty
+
+DOWNLOAD_BLOB_URL = '' # giving UNDP blob URL where we got the blob data e.g https://BLOB_URL/data/Downloads/
+
+
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'UTC'
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_CACHE_BACKEND = 'django-cache'
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+CELERY_RESULT_EXTENDED = True
+
+
+PATNA_LAT_EXTENT = [25.5564821482518987, 25.6511107253352009]
+PATNA_LONG_EXTENT = [85.0533656973787942, 85.2660488547837048]
+
+GURUGRAM_LAT_EXTENT = [28.2345922259237270, 28.5414071689263693]
+GURUGRAM_LONG_EXTENT = [76.7037880511077930, 77.1237623413377804]
+
+EMAIL_BACKEND = '' # stay empty
+FROM_EMAIL = "" # stay empty
+SMTP_HOST = '' # stay empty
+SMTP_PORT = "" # stay empty
+SMTP_USERNAME = '' # stay empty
+SMTP_PASSWORD = '' # stay empty
+
+SECRET_KEY = '' # Django secret key

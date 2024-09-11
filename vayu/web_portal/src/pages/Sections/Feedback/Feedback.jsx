@@ -1,7 +1,12 @@
 const Feedback = () => {
   return (
+<<<<<<< HEAD
     <div className="w-full flex flex-col items-start p-0 space-y-6">
       <span className="font-normal text-[20px] sm:p-0 md:text-[14px] md:leading-[20px]  lg:text-[24px] lg:leading-[28.16px] leading-[28.16px] md:p-2 lg:p-[20px] text-justify">
+=======
+    <div className="w-full flex flex-col items-start p-6 space-y-6">
+      <span className="font-normal text-[20px] p-[20px] md:text-[14px] md:leading-[20px]  lg:text-[24px] lg:leading-[28.16px] leading-[28.16px] md:p-2 lg:p-[20px] text-justify">
+>>>>>>> da0e218aa7b4dd12904c44a82e99e9b4bfa21e1c
         If you have any questions or comments about Vayu, please leave a comment
         on the Discussions tab of our <span></span>
         <a

@@ -28,7 +28,11 @@ MEDIA_URL = '/media/'
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+<<<<<<< HEAD
 SECRET_KEY = '-v6io14km0=g&h$o5yio4_%%2tm+gbigsjptnue4)-&r6e@ip!'
+=======
+SECRET_KEY = config.SECRET_KEY
+>>>>>>> da0e218aa7b4dd12904c44a82e99e9b4bfa21e1c
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config.DEBUG
@@ -181,12 +185,21 @@ SWAGGER_SETTINGS = {
     "USE_SESSION_AUTH": False,
 }
 
+<<<<<<< HEAD
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 FROM_EMAIL = "VAYU<vayuadmin@misteo.co>"
 SMTP_HOST = 'smtp.sendgrid.net'
 SMTP_PORT = 587
 SMTP_USERNAME = 'apikey'
 SMTP_PASSWORD = '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'
+=======
+EMAIL_BACKEND = config.EMAIL_BACKEND
+FROM_EMAIL = config.FROM_EMAIL
+SMTP_HOST = config.SMTP_HOST
+SMTP_PORT = config.SMTP_PORT
+SMTP_USERNAME = config.SMTP_USERNAME
+SMTP_PASSWORD = config.SMTP_PASSWORD
+>>>>>>> da0e218aa7b4dd12904c44a82e99e9b4bfa21e1c
 
 # Logging
 LOGGING = {

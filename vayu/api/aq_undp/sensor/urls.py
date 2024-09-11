@@ -5,7 +5,12 @@ from rest_framework.routers import DefaultRouter
 from .views import (DataViewset, GetDeviceViewset, DeviceDataViewset, HistoricalDataViewset, 
                     DataActviyViewset, MapLatLongViewset, DataTrendViewset, DownloadViewset,
                     DataTrendGraphViewset, GetStaticSensorViewset, DeviceDynamicPathViewset,
+<<<<<<< HEAD
                     DataDownloadBlobViewset, DataDeviceCountViewset, DownloadMonthYearViewset)
+=======
+                    DataDownloadBlobViewset, DataDeviceCountViewset, DownloadMonthYearViewset,
+                    DataDownloadUndpBlobViewset)
+>>>>>>> da0e218aa7b4dd12904c44a82e99e9b4bfa21e1c
 
 
 router = DefaultRouter(trailing_slash=False)
@@ -24,6 +29,10 @@ router.register(r"v1/data-download-blob", DataDownloadBlobViewset, basename="dat
 router.register(r"v1/device-dynamic-path", DeviceDynamicPathViewset, basename="device-dynamic-path")
 router.register(r"v1/data-device-count", DataDeviceCountViewset, basename="data-device-count")
 router.register(r"v1/download-month-year", DownloadMonthYearViewset, basename="download-month-year")
+<<<<<<< HEAD
+=======
+router.register(r"v1/data-download-undp-blob", DataDownloadUndpBlobViewset, basename="data-download-undp-blob")
+>>>>>>> da0e218aa7b4dd12904c44a82e99e9b4bfa21e1c
 
 urlpatterns = [
     path("api/", include(router.urls)),
