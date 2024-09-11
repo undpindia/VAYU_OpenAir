@@ -1,0 +1,35 @@
+.calendar-wrapper {
+    position: relative;
+    width: 100%;
+  
+    .react-datepicker-wrapper {
+      width: 100%;
+    }
+  
+    // .react-datepicker {
+    //   width: 100%;
+    //   max-width: none;
+    //   position: absolute;
+    //   left: 0;
+    //   top: calc(100% + 10px);
+    // }
+  
+    .react-datepicker__input-container {
+      width: 100%;
+    }
+  
+    .react-datepicker__input-container input {
+      width: 100%;
+    }
+  
+    .calender-icon {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+    }
+  
+
+  }
+  

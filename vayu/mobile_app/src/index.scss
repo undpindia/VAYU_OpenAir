@@ -1,0 +1,107 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgb(255, 255, 255);
+  // background-color: #fff;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+
+  /* Works on Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: #d3d3d3 #e4ecf7;
+
+  /* Works on Chrome, Edge, and Safari */
+  &::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #e4ecf7;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #d3d3d3;
+    border-radius: 20px;
+    border: 1px solid #e4ecf7;
+  }
+}
+
+body {
+  overscroll-behavior: none;
+  background-color: #fff;
+  height: 100%;
+  margin: 0;
+  overflow-x: hidden;
+  padding: 0;
+  scroll-behavior: smooth;
+  width: 100%;
+}
+
+a {
+  color: #31572c;
+  font-family: 'Satoshi';
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+a:hover {
+  color: #31572c;
+}
+
+h1 {
+  font-size: 3.2em;
+  // line-height: 1.1;
+}
+// div {
+//   padding: 10px;
+// }
+
+h2 {
+  font-size: 24px;
+}
+
+p {
+  font-size: 14px;
+}
+
+input {
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  border: 1px solid #dcdcdc;
+  background: #fff;
+  color: #1c1c1c;
+  padding: 10px;
+  position: relative;
+  font-family: 'Satoshi';
+}
+
+button:hover {
+  border-color: #31572c !important;
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+
+  button {
+    background-color: #f9f9f9;
+  }
+}
