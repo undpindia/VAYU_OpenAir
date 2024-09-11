@@ -127,7 +127,7 @@ Our endeavor is to prototype 'Open Digital Stack on Air Pollution' that steers c
 	cd vayu-openair/vayu/api  
 	```  
 	```  
-	cp env.sample .env  
+	cp config.sample config.py  
 	```
 	```  
 	nano .env  
