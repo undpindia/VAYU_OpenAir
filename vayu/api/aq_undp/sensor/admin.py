@@ -25,8 +25,8 @@ logging.basicConfig(format='%(asctime)s %(levelname)-8s [%(filename)s:%(lineno)d
 User = get_user_model()
 
 class DeviceAdmin(admin.ModelAdmin):
-    search_fields = ('device_name__icontains', 'id')
-    list_display = ["id", "device_name", "status", "get_data_last_time", "get_user", "device_type"]
+    search_fields = ('device_name__icontains', 'id', 'city')
+    list_display = ["id", "device_name", "status", "get_data_last_time", "get_user", "city", "device_type"]
     list_filter = ("status",)
     
     def has_add_permission(self, request, obj=None):
