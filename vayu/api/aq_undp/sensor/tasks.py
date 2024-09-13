@@ -197,7 +197,7 @@ def insert_data_download_csv():
                     data_created_time__month=current_month.month,
                     data_created_time__year=current_month.year,
                     device_id__city=dis,
-                    device_id__device_type=1 if 'Static' else 2
+                    device_id__device_type=1 if device_type=='static' else 2
                     ).order_by('id')
                 # Define the CSV file path
                 file_name = f'vayu_{dis}_{device_type}_sensor_data_{current_month.strftime("%B")}_{current_month.year}.csv'  # Replace with your desired file path
