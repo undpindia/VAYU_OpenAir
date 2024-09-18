@@ -27,7 +27,7 @@ User = get_user_model()
 class DeviceAdmin(admin.ModelAdmin):
     search_fields = ('device_name__icontains', 'id', 'city')
     list_display = ["id", "device_name", "status", "get_data_last_time", "get_user", "city", "device_type"]
-    list_filter = ("status",)
+    list_filter = ("status", "city", "device_type")
     
     def has_add_permission(self, request, obj=None):
         if request.user.role == 1:
