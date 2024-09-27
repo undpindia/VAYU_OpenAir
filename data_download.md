@@ -53,36 +53,56 @@ The Vayu Data Download API provides access to monthly air quality data collected
 
 ```python
 import requests
-import json
 
-url = "https://vayuapi.undp.org.in/device/api/v1/data-download-blob"
+# API endpoint
+url = "https://vayuapi.undp.org.in/device/api/v1/sensor-data-download"
 
-payload = json.dumps({
-  "month": "june",
-  "year": "2024",
-  "city": "patna",
-  "device_type": "dynamic",
-  "name": "John Doe",
-  "email": "john@example.com",
-  "usage_type": "non-commercial",
-  "purpose": "academic"
-})
-
+# Headers
 headers = {
-  'accept': 'application/json',
-  'Content-Type': 'application/json'
+    "accept": "application/json",
+    "Content-Type": "application/json"
 }
 
-response = requests.post(url, headers=headers, data=payload)
+# Request payload
+payload = {
+    "month": "September",
+    "year": "2024",
+    "city": "Patna",
+    "device_type": "dynamic"
+}
 
-print(response.text)
+# Send POST request
+response = requests.post(url, headers=headers, json=payload)
+
+# Check the response
+if response.status_code == 200:
+    data = response.json()
+    if data["success"]:
+        download_link = data["data"]
+        print(f"Data download link: {download_link}")
+        
+        # Download the CSV file
+        csv_response = requests.get(download_link)
+        if csv_response.status_code == 200:
+            # Save the file with a dynamic name
+            file_name = f"vayu_{payload['city']}_{payload['device_type']}_sensor_data_{payload['month']}_{payload['year']}.csv"
+            with open(file_name, 'wb') as file:
+                file.write(csv_response.content)
+            print(f"File downloaded successfully: {file_name}")
+        else:
+            print(f"Failed to download CSV file from the link. Status code: {csv_response.status_code}")
+    else:
+        print(f"Failed to download data: {data['message']}")
+else:
+    print(f"Error: {response.status_code} - {response.text}")
+
 ```
 
 ## Note
 
 This API is provided by the United Nations Development Programme (UNDP) as part of their efforts to monitor and improve air quality in Indian cities. Please use the data responsibly and in accordance with the purpose you've specified in your request.
 
-For more information about the Vayu project or UNDP's environmental initiatives, please visit [Vayu - Open Air](https://www.in.undp.org/).
+For more information about the Vayu project or UNDP's environmental initiatives, please visit [Vayu - Open Air](https://www.vayu.undp.org.in/).
 
 ## Support
 
