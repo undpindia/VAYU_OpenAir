@@ -227,8 +227,8 @@ export default function MapLibreHeatmap({
       setHeatMapUrl(
         'https://undpin176st003.blob.core.windows.net/data/Layers/gurugram/heatmap/heatmap.pmtiles'
       );
-      setLoaderLat(76.91488259904993)
-      setLoaderLng(28.407760350635037)
+      setLoaderLat(77.04046033126684)
+      setLoaderLng(28.448722043463903)
     } else {
       setGeojson(null);
     }
