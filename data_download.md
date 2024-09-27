@@ -7,9 +7,9 @@ The Vayu Data Download API provides access to monthly air quality data collected
 ## API Endpoint
 
 - **Description**: Download Monthly Data
-- **URL**: `https://vayuapi.undp.org.in/device/api/v1/sensor_data_download`
+- **URL**: `https://vayuapi.undp.org.in/device/api/v1/sensor-data-download`
 - **Method**: POST
-- **Response Format**: CSV
+- **Output**: CSV
 
 ## Headers
 
