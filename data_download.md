@@ -102,7 +102,7 @@ else:
 
 This API is provided by the United Nations Development Programme (UNDP) as part of their efforts to monitor and improve air quality in Indian cities. Please use the data responsibly and in accordance with the purpose you've specified in your request.
 
-For more information about the Vayu project or UNDP's environmental initiatives, please visit [Vayu - Open Air](https://www.vayu.undp.org.in/).
+For more information about the Vayu project or UNDP's environmental initiatives, please visit [Vayu - Open Air](https://vayu.undp.org.in/).
 
 ## Support
 
