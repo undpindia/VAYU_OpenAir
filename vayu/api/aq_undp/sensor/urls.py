@@ -25,7 +25,7 @@ router.register(r"v1/data-download-blob", DataDownloadBlobViewset, basename="dat
 router.register(r"v1/device-dynamic-path", DeviceDynamicPathViewset, basename="device-dynamic-path")
 router.register(r"v1/data-device-count", DataDeviceCountViewset, basename="data-device-count")
 router.register(r"v1/download-month-year", DownloadMonthYearViewset, basename="download-month-year")
-router.register(r"v1/data-download-undp-blob", DataDownloadUndpBlobViewset, basename="data-download-undp-blob")
+router.register(r"v1/sensor-data-download", DataDownloadUndpBlobViewset, basename="sensor-data-download")
 
 urlpatterns = [
     path("api/", include(router.urls)),
