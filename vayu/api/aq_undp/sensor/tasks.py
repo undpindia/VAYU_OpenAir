@@ -5,7 +5,7 @@ import json
 import datetime
 import csv
 
-from .models import Data, Device, DownloadMonthYear
+from .models import Data, Device, DownloadMonthYear, DataTrend
 
 from azure.storage.blob import BlobServiceClient
 
@@ -17,6 +17,7 @@ import config
 from django.core.files.storage import default_storage
 from django.conf import settings
 from django.urls import reverse
+from django.db.models import Count, Max, Min, Avg, Variance, StdDev, Aggregate, FloatField
 
 from utils.email_utils import send_mail
 
@@ -246,3 +247,133 @@ def insert_data_download_csv():
                 os.remove(file_name)
 
     return {"success":True,"message":"Monthwise CSV File uploaded/replaced successfully."}
+
+class Median(Aggregate):
+        function = 'PERCENTILE_CONT'
+        name = 'median'
+        output_field = FloatField()
+        template = '%(function)s(0.5) WITHIN GROUP (ORDER BY %(expressions)s)'
+
+@shared_task
+def insert_data_trend(): 
+    cities = Device.objects.filter(status=True).values_list('city', flat=True).distinct('city')
+    # previous date data needed
+    # this task is running next day
+    current_date = datetime.datetime.now().date()
+    
+    for city in cities:
+        if city:
+            device_lst = Device.objects.filter(status=True, city=city)
+            for device in device_lst:
+                filter_qs = Data.objects.filter(data_created_time__date=current_date,
+                                            device_id__device_name=device.device_name,
+                                            device_id__city=city)
+                
+                data = filter_qs.aggregate(
+                    pm_25_max = Max('pm_25'), 
+                    pm_25_min = Min('pm_25'), 
+                    pm_25_avg = Avg('pm_25'),
+                    pm_25_var = Variance('pm_25'),
+                    pm_25_stdev = StdDev('pm_25'),
+                    pm_25_median = Median('pm_25'),
+                    pm_10_max = Max('pm_10'), 
+                    pm_10_min = Min('pm_10'), 
+                    pm_10_avg = Avg('pm_10'),
+                    pm_10_var = Variance('pm_10'),
+                    pm_10_stdev = StdDev('pm_10'),
+                    pm_10_median = Median('pm_10'),
+                    no2_max = Max('no2'), 
+                    no2_min = Min('no2'), 
+                    no2_avg = Avg('no2'),
+                    no2_var = Variance('no2'),
+                    no2_stdev = StdDev('no2'),
+                    no2_median = Median('no2'),
+                    co_max = Max('co'), 
+                    co_min = Min('co'), 
+                    co_avg = Avg('co'),
+                    co_var = Variance('co'),
+                    co_stdev = StdDev('co'),
+                    co_median = Median('co'),
+                    co2_max = Max('co2'), 
+                    co2_min = Min('co2'), 
+                    co2_avg = Avg('co2'),
+                    co2_var = Variance('co2'),
+                    co2_stdev = StdDev('co2'),
+                    co2_median = Median('co2'),
+                    ch4_max = Max('ch4'), 
+                    ch4_min = Min('ch4'), 
+                    ch4_avg = Avg('ch4'),
+                    ch4_var = Variance('ch4'),
+                    ch4_stdev = StdDev('ch4'),
+                    ch4_median = Median('ch4'),
+                    temp_max = Max('temp'), 
+                    temp_min = Min('temp'), 
+                    temp_avg = Avg('temp'),
+                    temp_var = Variance('temp'),
+                    temp_stdev = StdDev('temp'),
+                    temp_median = Median('temp'),
+                    rh_max = Max('rh'), 
+                    rh_min = Min('rh'), 
+                    rh_avg = Avg('rh'),
+                    rh_var = Variance('rh'),
+                    rh_stdev = StdDev('rh'),
+                    rh_median = Median('rh'),
+                    )
+                
+                DataTrend.objects.create(
+                    device_id = device,
+                    city = city, 
+                    sensor_type = 'static' if device.device_type==1 else "dynamic", 
+                    pm_25_max = data['pm_25_max'], 
+                    pm_25_min = data['pm_25_min'], 
+                    pm_25_avg = data['pm_25_avg'],
+                    pm_25_var = data['pm_25_var'],
+                    pm_25_stdev = data['pm_25_stdev'],
+                    pm_25_median = data['pm_25_median'],
+                    pm_10_max = data['pm_10_max'], 
+                    pm_10_min = data['pm_10_min'], 
+                    pm_10_avg = data['pm_10_avg'],
+                    pm_10_var = data['pm_10_var'],
+                    pm_10_stdev = data['pm_10_stdev'],
+                    pm_10_median = data['pm_10_median'],
+                    no2_max = data['no2_max'], 
+                    no2_min = data['no2_min'], 
+                    no2_avg = data['no2_avg'],
+                    no2_var = data['no2_var'],
+                    no2_stdev = data['no2_stdev'],
+                    no2_median = data['no2_median'],
+                    co_max = data['co_max'], 
+                    co_min = data['co_min'], 
+                    co_avg = data['co_avg'],
+                    co_var = data['co_var'],
+                    co_stdev = data['co_stdev'],
+                    co_median = data['co_median'],
+                    co2_max = data['co2_max'], 
+                    co2_min = data['co2_min'], 
+                    co2_avg = data['co2_avg'],
+                    co2_var = data['co2_var'],
+                    co2_stdev = data['co2_stdev'],
+                    co2_median = data['co2_median'],
+                    ch4_max = data['ch4_max'], 
+                    ch4_min = data['ch4_min'], 
+                    ch4_avg = data['ch4_avg'],
+                    ch4_var = data['ch4_var'],
+                    ch4_stdev = data['ch4_stdev'],
+                    ch4_median = data['ch4_median'],
+                    temp_max = data['temp_max'], 
+                    temp_min = data['temp_min'], 
+                    temp_avg = data['temp_avg'],
+                    temp_var = data['temp_var'],
+                    temp_stdev = data['temp_stdev'],
+                    temp_median = data['temp_median'],
+                    rh_max = data['rh_max'], 
+                    rh_min = data['rh_min'], 
+                    rh_avg = data['rh_avg'],
+                    rh_var = data['rh_var'],
+                    rh_stdev = data['rh_stdev'],
+                    rh_median = data['rh_median'],
+                    data_created_date = current_date,
+                    data_count = filter_qs.count()
+                )
+        
+    return {"success":True,"message":"Data Trend uploaded successfully."}

@@ -6,7 +6,7 @@ import os
 from django.shortcuts import render
 from django.contrib.auth import get_user_model
 from django.db.models.functions import TruncMonth, TruncYear, TruncDay
-from django.db.models import Count, Max, Min, Avg, Variance, StdDev, Aggregate, FloatField
+from django.db.models import Count, Max, Min, Avg, Variance, StdDev, Aggregate, FloatField, Sum
 from django.http import HttpResponse, StreamingHttpResponse, Http404
 from django.core.files.storage import default_storage
 
@@ -14,7 +14,7 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 
-from .models import Device, Data, DeviceType, DownloadData, DownloadMonthYear
+from .models import Device, Data, DeviceType, DownloadData, DownloadMonthYear, DataTrend
 from .serializers import DataSerializer, HistoricalDataSerializer, DownloadMonthYearSerializer
 
 from utils.message_utils import get_message
@@ -772,7 +772,7 @@ class DataDownloadBlobViewset(viewsets.ModelViewSet):
             usage_type = request.data.get('usage_type')
             purpose = request.data.get('purpose')
             
-            url = config.DOWNLOAD_BLOB_URL + str(city).capitalize() + "/sensor-data/data-" + device_type + "-sensor/vayu_"+str(city).capitalize()+ "_" + device_type +"_sensor_data_"+ from_month +"_"+ str(year) +".csv"
+            url = config.DOWNLOAD_BLOB_URL + str(city).capitalize() + "/sensor-data/data-" + str(device_type).lower() + "-sensor/vayu_"+str(city).capitalize()+ "_" + str(device_type).lower() +"_sensor_data_"+ str(from_month).capitalize() +"_"+ str(year) +".csv"
             
             DownloadData.objects.create(
                 month = from_month,
@@ -1105,7 +1105,7 @@ class DataDownloadUndpBlobViewset(viewsets.ModelViewSet):
             city = request.data.get('city')
             year = request.data.get('year')
             
-            url = config.DOWNLOAD_BLOB_URL + str(city).capitalize() + "/sensor-data/data-" + device_type + "-sensor/vayu_"+str(city).capitalize()+ "_" + device_type +"_sensor_data_"+ from_month +"_"+ str(year) +".csv"
+            url = config.DOWNLOAD_BLOB_URL + str(city).capitalize() + "/sensor-data/data-" + str(device_type).lower() + "-sensor/vayu_"+str(city).capitalize()+ "_" + str(device_type).lower() +"_sensor_data_"+ str(from_month).capitalize() +"_"+ str(year) +".csv"
             
             return Response(
                 {
@@ -1126,3 +1126,371 @@ class DataDownloadUndpBlobViewset(viewsets.ModelViewSet):
                 },
                 status.HTTP_400_BAD_REQUEST
             )
+
+class DataTrendDirectViewset(viewsets.ModelViewSet):
+    permission_classes = ()
+    queryset = DataTrend.objects.all()
+
+    def create(self, request, *args, **kwargs):
+        try:
+            from_date = request.data.get('from_date')
+            to_date = request.data.get('to_date')
+            
+            if request.data.get('device_type') == "static":
+                device_type = ["static"]
+            elif request.data.get('device_type') == "dynamic":
+                device_type = [ "dynamic"]
+            else:
+                device_type = ["static", "dynamic"]
+                
+            if request.data.get('city') == 'all':
+                city = Device.objects.filter(status=True).values_list('city', flat=True)
+            else:
+                city = Device.objects.filter(
+                    city__icontains=request.data.get('city'),
+                    status=True
+                    ).values_list('city', flat=True)
+            
+            if request.data.get('device_id') == 'all':
+                device_id = Device.objects.filter(status=True).values_list('device_name', flat=True)
+            else:
+                device_id = Device.objects.filter(
+                    device_name__icontains=request.data.get('device_id'),
+                    status=True
+                    ).values_list('device_name', flat=True)
+            
+            if (from_date and to_date) == "all":
+                filter_qs = self.queryset.filter(city__in=city,
+                                            device_id__device_name__in=device_id,
+                                            sensor_type__in=device_type)
+            else:
+                filter_qs = self.queryset.filter(city__in=city,
+                                            device_id__device_name__in=device_id,
+                                            sensor_type__in=device_type,
+                                            data_created_date__gte=from_date,
+                                            data_created_date__lte=to_date)
+            
+            data = filter_qs.aggregate(
+                pm_25_max = Max('pm_25_max'), 
+                pm_25_min = Min('pm_25_min'), 
+                pm_25_avg = Avg('pm_25_avg'),
+                pm_25_var = Avg('pm_25_var'),
+                pm_25_stdev = Avg('pm_25_stdev'),
+                pm_25_median = Avg('pm_25_median'),
+                pm_10_max = Max('pm_10_max'), 
+                pm_10_min = Min('pm_10_min'), 
+                pm_10_avg = Avg('pm_10_avg'),
+                pm_10_var = Avg('pm_10_var'),
+                pm_10_stdev = Avg('pm_10_stdev'),
+                pm_10_median = Avg('pm_10_median'),
+                no2_max = Max('no2_max'), 
+                no2_min = Min('no2_min'), 
+                no2_avg = Avg('no2_avg'),
+                no2_var = Avg('no2_var'),
+                no2_stdev = Avg('no2_stdev'),
+                no2_median = Avg('no2_median'),
+                co_max = Max('co_max'), 
+                co_min = Min('co_min'), 
+                co_avg = Avg('co_avg'),
+                co_var = Avg('co_var'),
+                co_stdev = Avg('co_stdev'),
+                co_median = Avg('co_median'),
+                co2_max = Max('co2_max'), 
+                co2_min = Min('co2_min'), 
+                co2_avg = Avg('co2_avg'),
+                co2_var = Avg('co2_var'),
+                co2_stdev = Avg('co2_stdev'),
+                co2_median = Avg('co2_median'),
+                ch4_max = Max('ch4_max'), 
+                ch4_min = Min('ch4_min'), 
+                ch4_avg = Avg('ch4_avg'),
+                ch4_var = Avg('ch4_var'),
+                ch4_stdev = Avg('ch4_stdev'),
+                ch4_median = Avg('ch4_median'),
+                temp_max = Max('temp_max'), 
+                temp_min = Min('temp_min'), 
+                temp_avg = Avg('temp_avg'),
+                temp_var = Avg('temp_var'),
+                temp_stdev = Avg('temp_stdev'),
+                temp_median = Avg('temp_median'),
+                rh_max = Max('rh_max'), 
+                rh_min = Min('rh_min'), 
+                rh_avg = Avg('rh_avg'),
+                rh_var = Avg('rh_var'),
+                rh_stdev = Avg('rh_stdev'),
+                rh_median = Avg('rh_median'),
+                )
+            
+            return Response(
+                {
+                    "code": 200,
+                    "success": True,
+                    "message": get_message(200),
+                    "data": data
+                },
+                status.HTTP_200_OK
+            )
+
+        except Exception:
+            return Response(
+                {
+                    "code": 400,
+                    "success": False,
+                    "message": get_message(400)
+                },
+                status.HTTP_400_BAD_REQUEST
+            )
+
+class DataTrendGraphDirectViewset(viewsets.ModelViewSet):
+    permission_classes = ()
+    queryset = DataTrend.objects.all()
+
+    def create(self, request, *args, **kwargs):
+        try:
+            from_date = request.data.get('from_date')
+            to_date = request.data.get('to_date')
+            
+            if request.data.get('device_type') == "static":
+                device_type = ["static"]
+            elif request.data.get('device_type') == "dynamic":
+                device_type = [ "dynamic"]
+            else:
+                device_type = ["static", "dynamic"]
+                
+            if request.data.get('city') == 'all':
+                city = Device.objects.filter(status=True).values_list('city', flat=True)
+            else:
+                city = Device.objects.filter(
+                    city__icontains=request.data.get('city'),
+                    status=True
+                    ).values_list('city', flat=True)
+                
+            if request.data.get('device_id') == 'all':
+                device_id = Device.objects.filter(status=True).values_list('device_name', flat=True)
+            else:
+                device_id = Device.objects.filter(
+                    device_name__icontains=request.data.get('device_id'),
+                    status=True
+                    ).values_list('device_name', flat=True)
+            
+            if (from_date and to_date) == "all":
+                filter_qs = self.queryset.filter(device_id__city__in=city,
+                                            device_id__device_name__in=device_id,
+                                            sensor_type__in=device_type)
+            else:
+                filter_qs = self.queryset.filter(city__in=city,
+                                            device_id__device_name__in=device_id,
+                                            sensor_type__in=device_type,
+                                            data_created_date__gte=from_date,
+                                            data_created_date__lte=to_date)
+            
+            days = filter_qs.annotate(
+                day=TruncDay('data_created_date')).values('day').annotate(
+                    pm_25_avg=Avg('pm_25_avg'),
+                    pm_10_avg=Avg('pm_10_avg'),
+                    no2_avg=Avg('no2_avg'),
+                    co_avg=Avg('co_avg'),
+                    co2_avg=Avg('co2_avg'),
+                    ch4_avg=Avg('ch4_avg'),
+                    temp_avg=Avg('temp_avg'),
+                    rh_avg=Avg('rh_avg')
+                    ).order_by('day')
+            
+            if days:
+                month_lst = []
+                for i in days:
+                    d = {
+                        "date" : i['day'],
+                        "pm_25_avg" : i['pm_25_avg'],
+                        "pm_10_avg" : i['pm_10_avg'],
+                        "no2_avg" : i['no2_avg'],
+                        "co_avg" : i['co_avg'],
+                        "co2_avg" : i['co2_avg'],
+                        "ch4_avg" : i['ch4_avg'],
+                        "temp_avg" : i['temp_avg'],
+                        "rh_avg" : i['rh_avg'],
+                    }
+                    month_lst.append(d)
+                
+                
+                return Response(
+                    {
+                        "code": 200,
+                        "success": True,
+                        "message": get_message(200),
+                        "data": month_lst
+                    },
+                    status.HTTP_200_OK
+                )
+            else:
+                return Response(
+                    {
+                        "code": 200,
+                        "success": False,
+                        "message": get_message(404)
+                    },
+                    status.HTTP_200_OK
+                )
+
+        except Exception:
+            return Response(
+                {
+                    "code": 400,
+                    "success": False,
+                    "message": get_message(400)
+                },
+                status.HTTP_400_BAD_REQUEST
+            )
+
+class DataActviyDirectViewset(viewsets.ModelViewSet):
+    permission_classes = ()
+    queryset = DataTrend.objects.all()
+
+    def create(self, request, *args, **kwargs):
+        from_date = request.data.get('from_date')
+        to_date = request.data.get('to_date')
+        
+        if request.data.get('device_type') == "static":
+            device_type = ["static"]
+        elif request.data.get('device_type') == "dynamic":
+            device_type = [ "dynamic"]
+        else:
+            device_type = ["static", "dynamic"]
+            
+        if request.data.get('city') == 'all':
+            city = Device.objects.filter(status=True).values_list('city', flat=True)
+        else:
+            city = Device.objects.filter(
+                city__icontains=request.data.get('city'),
+                status=True
+                ).values_list('city', flat=True)
+            
+        if request.data.get('device_id') == 'all':
+            device_id = Device.objects.filter(status=True).values_list('device_name', flat=True)
+        else:
+            device_id = Device.objects.filter(
+                device_name__icontains=request.data.get('device_id'),
+                status=True
+                ).values_list('device_name', flat=True)
+        
+        if (from_date and to_date) == "all":
+            filter_qs = self.queryset.filter(city__in=city,
+                                        device_id__device_name__in=device_id,
+                                        sensor_type__in=device_type)
+        else:
+            filter_qs = self.queryset.filter(city__in=city,
+                                        device_id__device_name__in=device_id,
+                                        sensor_type__in=device_type,
+                                        data_created_date__gte=from_date,
+                                        data_created_date__lte=to_date)
+        
+        days = filter_qs.annotate(day=TruncDay('data_created_date')).values('day').annotate(total=Sum('data_count')).order_by('day')
+        years = filter_qs.annotate(year=TruncYear('data_created_date')).values_list('year', flat=True).distinct().order_by('year')
+        
+        try:
+            if days:
+                data_lst = []
+                for j in years:
+                    e = {}
+                    for month_count in range(1, 13):
+                        month_lst = []
+                        for i in days:
+                            if i['day'].year == j.year and i['day'].month == month_count:
+                                d = {
+                                    "date" : i['day'],
+                                    "count" : i['total']
+                                }
+                                month_lst.append(d)
+                        e[month_count] = month_lst
+                    f = {
+                        "year": j.year,
+                        "data": e
+                    }
+                    data_lst.append(f)
+                
+                
+                return Response(
+                    {
+                        "code": 200,
+                        "success": True,
+                        "message": get_message(200),
+                        "data": data_lst
+                    },
+                    status.HTTP_200_OK
+                )
+            else:
+                return Response(
+                    {
+                        "code": 200,
+                        "success": False,
+                        "message": get_message(404)
+                    },
+                    status.HTTP_200_OK
+                )
+
+        except Exception:
+            return Response(
+                {
+                    "code": 400,
+                    "success": False,
+                    "message": get_message(400)
+                },
+                status.HTTP_400_BAD_REQUEST
+            )
+
+class DataDeviceCountDirectViewset(viewsets.ModelViewSet):
+    permission_classes = ()
+    queryset = DataTrend.objects.all()
+
+    def create(self, request, *args, **kwargs):
+        try:
+            from_date = request.data.get('from_date')
+            to_date = request.data.get('to_date')
+            
+            if request.data.get('device_type') == "static":
+                device_type = ["static"]
+            elif request.data.get('device_type') == "dynamic":
+                device_type = [ "dynamic"]
+            else:
+                device_type = ["static", "dynamic"]
+                
+            if request.data.get('city') == 'all':
+                city = Device.objects.filter(status=True).values_list('city', flat=True)
+            else:
+                city = Device.objects.filter(
+                    city__icontains=request.data.get('city'),
+                    status=True
+                    ).values_list('city', flat=True)
+            
+            if (from_date and to_date) == "all":
+                filter_qs = self.queryset.filter(city__in=city,
+                                            sensor_type__in=device_type)
+            else:
+                filter_qs = self.queryset.filter(city__in=city,
+                                            sensor_type__in=device_type,
+                                            data_created_date__gte=from_date,
+                                            data_created_date__lte=to_date)
+            
+            device_count = filter_qs.exclude(data_count=0).values_list('device_id', flat=True).distinct().count()
+            data_count = filter_qs.aggregate(total=Sum('data_count'))
+                
+            return Response(
+                {
+                    "code": 200,
+                    "success": True,
+                    "message": get_message(200),
+                    "device_count": device_count,
+                    "data_count": data_count['total']
+                },
+                status.HTTP_200_OK
+            )
+
+        except Exception:
+            return Response(
+                {
+                    "code": 400,
+                    "success": False,
+                    "message": get_message(400)
+                },
+                status.HTTP_400_BAD_REQUEST
+            ) 
