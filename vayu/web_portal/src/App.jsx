@@ -6,6 +6,8 @@ import Dashboard from './pages/Dashboard/Dashboard';
 const App = () => {
   const [isMenuActive, setIsMenuActive] = useState(false);
 
+  const [isInitailDialogBoxOpen, setIsInitailDialogBoxOpen] = useState(false);
+
   const toggleMenu = () => {
     setIsMenuActive(!isMenuActive);
 
@@ -16,9 +18,17 @@ const App = () => {
     // }
   };
 
+  const handleHelpClick = () => {
+    setIsInitailDialogBoxOpen(!isInitailDialogBoxOpen);
+  };
+
   return (
     <div className="no-scrollbar">
-      <Layout isActive={isMenuActive} toggleMenu={toggleMenu}>
+      <Layout
+        isActive={isMenuActive}
+        toggleMenu={toggleMenu}
+        onHelpClick={handleHelpClick}
+      >
         {isMenuActive && <Sections />}
         <div
           className={
@@ -27,7 +37,10 @@ const App = () => {
               : 'visible'
           }
         >
-          <Dashboard />
+          <Dashboard
+            isInitailDialogBoxOpen={isInitailDialogBoxOpen}
+            setIsInitailDialogBoxOpen={setIsInitailDialogBoxOpen}
+          />
         </div>
       </Layout>
     </div>
