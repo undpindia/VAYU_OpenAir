@@ -1,8 +1,10 @@
 import CalendarHeatmap from 'react-calendar-heatmap';
 import 'react-calendar-heatmap/dist/styles.css';
 import './ActivityGraph.scss';
-import { Fragment, useState } from 'react'; //useMemo
+import { Fragment, useEffect, useRef, useState } from 'react'; //useMemo
 import moment from 'moment';
+import { Button } from '../ui/button';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 const colorScaleSummary = (number) => {
   if (number <= 500) return 'color-scale-0';
@@ -169,6 +171,49 @@ const ActivityGraph = ({ data }) => {
 
   const { startDate, endDate } = getDateRange(selectedData);
 
+  // SCROLL EFFECT USING BUTTONS
+  const scrollContainerRef = useRef(null);
+  const [isAtStart, setIsAtStart] = useState(true);
+  const [isAtEnd, setIsAtEnd] = useState(false);
+
+  // Scroll to the left
+  const scrollLeft = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: -300, behavior: 'smooth' });
+    }
+  };
+
+  // Scroll to the right
+  const scrollRight = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: 300, behavior: 'smooth' });
+    }
+  };
+
+  // Update button states based on scroll position
+  const updateScrollState = () => {
+    if (scrollContainerRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } =
+        scrollContainerRef.current;
+
+      setIsAtStart(scrollLeft === 0);
+      setIsAtEnd(scrollLeft + clientWidth >= scrollWidth);
+    }
+  };
+
+  // Add scroll listener
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (container) {
+      container.addEventListener('scroll', updateScrollState);
+      updateScrollState(); // Initial check
+
+      return () => {
+        container.removeEventListener('scroll', updateScrollState);
+      };
+    }
+  }, []);
+
   return (
     <Fragment>
       <div className="p-4 flex items-center justify-end">
@@ -176,49 +221,77 @@ const ActivityGraph = ({ data }) => {
           {startDate} - {endDate}
         </p>
       </div>
-      <div className="flex justify-start items-center space-x-8 overflow-x-auto py-4 no-scrollbar">
-        {Object.entries(selectedData.data).map(([month, monthData]) => {
-          const { startDate, endDate } = getMonthDates(selectedYear, month);
 
-          return (
-            <div key={month} className="flex flex-col items-center">
-              <div className="w-[300px] h-[300px] flex flex-col justify-between">
-                <CalendarHeatmap
-                  startDate={startDate - 1}
-                  endDate={endDate}
-                  values={monthData}
-                  onClick={(value) => console.log(value)}
-                  gutterSize={3}
-                  classForValue={(value) => {
-                    if (!value) {
-                      return 'color-empty';
-                    }
-                    return colorScaleSummary(value?.count);
-                  }}
-                  showMonthLabels={false}
-                  showWeekdayLabels={false}
-                  onMouseOver={handleMouseOver}
-                  onMouseLeave={handleMouseLeave}
-                />
-                {tooltip.visible && (
-                  <div
-                    className="absolute z-10 px-3 py-2 bg-gray-700 text-white text-sm rounded"
-                    style={{
-                      top: tooltip.y - 160, // Adjust to position above the tile
-                      left: tooltip.x,
-                      transform: 'translateX(-50%)',
+      <div className="flex items-center space-x-2">
+        <Button
+          onClick={scrollLeft}
+          disabled={isAtStart}
+          className={`bg-[#2D8643] text-white p-3 w-11 h-11 rounded-full transform -translate-y-1/2 focus:outline-none hover:bg-[#61B068] ${
+            isAtStart ? 'opacity-50 cursor-not-allowed' : ''
+          }`}
+          style={{ position: 'sticky', left: 0 }}
+        >
+          <ArrowLeft size={20} />
+        </Button>
+
+        <div
+          className="flex justify-start items-center space-x-8 overflow-x-auto py-4 no-scrollbar"
+          ref={scrollContainerRef}
+        >
+          {Object.entries(selectedData.data).map(([month, monthData]) => {
+            const { startDate, endDate } = getMonthDates(selectedYear, month);
+
+            return (
+              <div key={month} className="flex flex-col items-center">
+                <div className="w-[300px] h-[300px] flex flex-col justify-between">
+                  <CalendarHeatmap
+                    startDate={startDate - 1}
+                    endDate={endDate}
+                    values={monthData}
+                    onClick={(value) => console.log(value)}
+                    gutterSize={3}
+                    classForValue={(value) => {
+                      if (!value) {
+                        return 'color-empty';
+                      }
+                      return colorScaleSummary(value?.count);
                     }}
-                  >
-                    <span className="text-[18px]">{tooltip.content}</span>
-                  </div>
-                )}
+                    showMonthLabels={false}
+                    showWeekdayLabels={false}
+                    onMouseOver={handleMouseOver}
+                    onMouseLeave={handleMouseLeave}
+                  />
+                  {tooltip.visible && (
+                    <div
+                      className="absolute z-50 px-3 py-2 bg-gray-700 text-white text-sm rounded"
+                      style={{
+                        top: tooltip.y - 160, // Adjust to position above the tile
+                        left: tooltip.x,
+                        transform: 'translateX(-50%)',
+                      }}
+                    >
+                      <span className="text-[18px]">{tooltip.content}</span>
+                    </div>
+                  )}
+                </div>
+                <h1 className="mt-2 text-lg font-normal">
+                  {month} {selectedYear}
+                </h1>
               </div>
-              <h1 className="mt-2 text-lg font-normal">
-                {month} {selectedYear}
-              </h1>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
+
+        <Button
+          onClick={scrollRight}
+          disabled={isAtEnd}
+          className={`bg-[#2D8643] text-white p-3 w-11 h-11 rounded-full transform -translate-y-1/2 focus:outline-none hover:bg-[#61B068] ${
+            isAtEnd ? 'opacity-50 cursor-not-allowed' : ''
+          }`}
+          style={{ position: 'sticky', right: 0 }}
+        >
+          <ArrowRight size={20} />
+        </Button>
       </div>
       <div className="flex flex-col items-center relative">
         {/* <div className="mb-2 text-center text-lg font-normal">
