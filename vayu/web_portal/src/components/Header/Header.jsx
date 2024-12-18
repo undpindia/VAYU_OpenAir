@@ -15,13 +15,8 @@ const Header = ({ toggleMenu, isActive, onHelpClick }) => {
         <div className="header-button">
           <img src={UndpLogo} alt="UNDP Logo" />
         </div>
-        <div className="header-button">
-          <Info
-            size={25}
-            color="#31572c"
-            onClick={onHelpClick}
-            className="border-0"
-          />
+        <div className="header-button" onClick={onHelpClick}>
+          <Info size={25} color="#31572c" className="border-0" />
         </div>
 
         <div onClick={toggleMenu} className="header-button">
