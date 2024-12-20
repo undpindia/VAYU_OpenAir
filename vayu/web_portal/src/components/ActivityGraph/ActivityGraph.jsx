@@ -197,7 +197,8 @@ const ActivityGraph = ({ data }) => {
         scrollContainerRef.current;
 
       setIsAtStart(scrollLeft === 0);
-      setIsAtEnd(scrollLeft + clientWidth >= scrollWidth);
+      // setIsAtEnd(scrollLeft + clientWidth >= scrollWidth);
+      setIsAtEnd(scrollLeft + clientWidth + 100 >= scrollWidth);
     }
   };
 
