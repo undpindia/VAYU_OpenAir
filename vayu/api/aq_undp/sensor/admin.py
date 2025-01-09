@@ -54,7 +54,7 @@ class DeviceAdmin(admin.ModelAdmin):
     get_data_last_time.short_description = 'Data Last Fetch Time'
     get_user.short_description = 'User'
     
-class DataAdmin(ImportExportModelAdmin):
+class DataAdmin(admin.ModelAdmin):
     search_fields = ('device_id__device_name__icontains', 'id')
     list_display = ["id", "get_device", "lat", "long", "time_seconds", "get_user", "get_user_district", 'pm_25',"pm_10", "no2", "co", "co2", "ch4", "get_temp", "get_rh"]
     list_filter = ("data_created_time",
@@ -72,7 +72,8 @@ class DataAdmin(ImportExportModelAdmin):
         self.message_user(request, "Export task started. You will receive an email with the download link once it's ready.")
 
     export_as_mail_csv.short_description = "Export Selected as CSV in mail"
-    actions = [export_as_csv, export_as_mail_csv]
+    # actions = [export_as_csv, export_as_mail_csv]
+    actions = [export_as_mail_csv]
     
     def has_add_permission(self, request, obj=None):
         if request.user.role == 1:
@@ -138,4 +139,4 @@ class DownloadMonthYearAdmin(admin.ModelAdmin):
 admin.site.register(Device, DeviceAdmin)
 admin.site.register(Data, DataAdmin)
 admin.site.register(DownloadData, DownloadDataAdmin)
-admin.site.register(DownloadMonthYear, DownloadMonthYearAdmin)
+# admin.site.register(DownloadMonthYear, DownloadMonthYearAdmin)

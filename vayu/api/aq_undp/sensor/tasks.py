@@ -121,7 +121,7 @@ def insert_heatmap_pmtiles():
         
 
         # Replace with your actual connection string
-        connection_string = "DefaultEndpointsProtocol=https;AccountName=undpin176st003;AccountKey=Vkp8VRfCtT5nMpOHD1ZO22psRyVVTowUIWCPWcZGT2kKHXAGn5q1GXBgQ5azJoNcOMHOxys0nNtz+AStCjUCkA==;EndpointSuffix=core.windows.net"
+        connection_string = config.AZURE_CONNECTION_STRING
         container_name = "data/Layers"
         blob_name = f"{dis.lower()}/heatmap/heatmap.pmtiles"
         local_file_path = pmtiles_file
@@ -224,7 +224,7 @@ def insert_data_download_csv():
                             ])  # Adjust as needed
                         
                 # Replace with your actual connection string
-                connection_string = "DefaultEndpointsProtocol=https;AccountName=undpin176st003;AccountKey=Vkp8VRfCtT5nMpOHD1ZO22psRyVVTowUIWCPWcZGT2kKHXAGn5q1GXBgQ5azJoNcOMHOxys0nNtz+AStCjUCkA==;EndpointSuffix=core.windows.net"
+                connection_string = config.AZURE_CONNECTION_STRING
                 container_name = "data/Downloads"
                 blob_name = f"{dis}/sensor-data/data-{device_type}-sensor/{file_name}"
                 local_file_path = file_name
@@ -377,3 +377,66 @@ def insert_data_trend():
                 )
         
     return {"success":True,"message":"Data Trend uploaded successfully."}
+
+@shared_task
+def insert_daily_data_download_csv():
+    current_month = datetime.date.today()- datetime.timedelta(days=1)
+
+    district_names = Device.objects.all().values_list('city', flat=True).distinct('city')
+
+    for dis in district_names:
+        if dis:
+            for device_type in ['static', 'dynamic']:
+                # Query the database
+                data = Data.objects.filter(
+                    data_created_time__date=current_month,
+                    device_id__city=dis,
+                    device_id__device_type=1 if device_type=='static' else 2
+                    ).order_by('id')
+                # Define the CSV file path
+                file_name = f'vayu_{dis}_{device_type}_sensor_data_{current_month}.csv'  # Replace with your desired file path
+                with open(file_name, 'a', newline='') as csvfile:
+                    writer = csv.writer(csvfile)
+                    writer.writerow(['id', 'device_name', 'lat', 'long', 'pm_25', 'pm_10', 'no2', 'co', 'co2', 'ch4', 'temp', 'rh', 'data_created_time'])  # Add your model's fields
+
+                    for item in data:
+                        writer.writerow(
+                            [item.id, 
+                            item.device_id.device_name, 
+                            item.lat,
+                            item.long,
+                            item.pm_25,
+                            item.pm_10,
+                            item.no2,
+                            item.co,
+                            item.co2,
+                            item.ch4,
+                            item.temp,
+                            item.rh,
+                            item.data_created_time,
+                            ])  # Adjust as needed
+
+                # Replace with your actual connection string
+                connection_string = config.AZURE_CONNECTION_STRING
+                container_name = "data/Downloads"
+                blob_name = f"{dis}/daily-sensor-data/data-{device_type}-sensor/{file_name}"
+                local_file_path = file_name
+
+                # Initialize the BlobServiceClient
+                blob_service_client = BlobServiceClient.from_connection_string(connection_string)
+
+                # Get a reference to the container
+                container_client = blob_service_client.get_container_client(container_name)
+
+                # Get a reference to the blob (file) you want to upload/replace
+                blob_client = container_client.get_blob_client(blob_name)
+
+                # Upload the file, replacing it if it already exists
+                with open(local_file_path, "rb") as data:
+                    blob_client.upload_blob(data, overwrite=True)
+
+                # print(f"File {blob_name} uploaded/replaced successfully.")
+
+                os.remove(file_name)
+
+    return {"success":True,"message":"Dailywise CSV File uploaded/replaced successfully."}

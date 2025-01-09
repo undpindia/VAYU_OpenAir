@@ -30,6 +30,10 @@ app.conf.beat_schedule = {
         'task':'sensor.tasks.insert_data_trend',
         'schedule':crontab(minute=1, hour=20),
     },
+    'insert-data-daily-csv-every-night':{
+        'task':'sensor.tasks.insert_daily_data_download_csv',
+        'schedule':crontab(minute=1, hour=23),
+    },
 }
 
 app.autodiscover_tasks()

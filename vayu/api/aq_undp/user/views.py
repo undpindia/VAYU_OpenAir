@@ -58,7 +58,7 @@ class ForgotPasswordViewset(viewsets.ModelViewSet):
         try:
             email = request.data.get('email')
             try:
-                user = User.objects.get(email=email)
+                user = User.objects.get(email__iexact=email)
             except User.DoesNotExist:
                 return Response(
                     {
@@ -121,7 +121,7 @@ class ResetPasswordViewset(viewsets.ModelViewSet):
         password = request.data.get("password")
 
         try:
-            user = User.objects.get(email=email)
+            user = User.objects.get(email__iexact=email)
             user.set_password(password)
             user.save()
             refresh = RefreshToken.for_user(user)
