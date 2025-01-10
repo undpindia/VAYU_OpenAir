@@ -2,6 +2,7 @@ import datetime
 import csv
 import logging
 import os
+import requests
 
 from django.shortcuts import render
 from django.contrib.auth import get_user_model
@@ -1494,3 +1495,42 @@ class DataDeviceCountDirectViewset(viewsets.ModelViewSet):
                 },
                 status.HTTP_400_BAD_REQUEST
             ) 
+
+class DailyDataDownloadUndpBlobViewset(viewsets.ModelViewSet):
+    permission_classes = ()
+
+    def create(self, request, *args, **kwargs):
+        try:
+            date = request.data.get('date')
+            device_type = request.data.get('device_type')
+            city = request.data.get('city')
+            
+            url = config.DOWNLOAD_BLOB_URL + str(city).capitalize() + "/daily-sensor-data/data-" + str(device_type).lower() + "-sensor/vayu_"+str(city).capitalize()+ "_" + str(device_type).lower() +"_sensor_data_"+ str(date) +".csv"
+            response = requests.get(url)
+            
+            if response.status_code == 200:
+                csv_content = response.content
+                file_name = "vayu_"+str(city).capitalize()+ "_" + str(device_type).lower() +"_sensor_data_"+ str(date) +".csv"
+                response = HttpResponse(csv_content, content_type='text/csv')
+                response['Content-Disposition'] = f'attachment; filename={file_name}'
+                
+                return response
+            else:
+                return Response(
+                    {
+                        "code": 500,
+                        "success": False,
+                        "message": get_message(500)
+                    },
+                    status.HTTP_500_INTERNAL_SERVER_ERROR
+                )
+
+        except Exception:
+            return Response(
+                {
+                    "code": 400,
+                    "success": False,
+                    "message": get_message(400)
+                },
+                status.HTTP_400_BAD_REQUEST
+            )

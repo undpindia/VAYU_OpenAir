@@ -7,7 +7,7 @@ from .views import (DataViewset, GetDeviceViewset, DeviceDataViewset, Historical
                     DataTrendGraphViewset, GetStaticSensorViewset, DeviceDynamicPathViewset,
                     DataDownloadBlobViewset, DataDeviceCountViewset, DownloadMonthYearViewset,
                     DataDownloadUndpBlobViewset, DataTrendDirectViewset, DataTrendGraphDirectViewset,
-                    DataActviyDirectViewset, DataDeviceCountDirectViewset)
+                    DataActviyDirectViewset, DataDeviceCountDirectViewset, DailyDataDownloadUndpBlobViewset)
 
 
 router = DefaultRouter(trailing_slash=False)
@@ -31,6 +31,7 @@ router.register(r"v1/data-trend", DataTrendDirectViewset, basename="data-trend")
 router.register(r"v1/data-trend-graph", DataTrendGraphDirectViewset, basename="data-trend-graph")
 router.register(r"v1/data-activity", DataActviyDirectViewset, basename="data-activity")
 router.register(r"v1/data-device-count", DataDeviceCountDirectViewset, basename="data-device-count")
+router.register(r"v1/daily-data-download", DailyDataDownloadUndpBlobViewset, basename="daily-data-download")
 
 urlpatterns = [
     path("api/", include(router.urls)),

@@ -380,7 +380,7 @@ def insert_data_trend():
 
 @shared_task
 def insert_daily_data_download_csv():
-    current_month = datetime.date.today()- datetime.timedelta(days=1)
+    current_month = datetime.date.today()
 
     district_names = Device.objects.all().values_list('city', flat=True).distinct('city')
 

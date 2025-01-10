@@ -19,6 +19,7 @@ messages = {
     457: "Date and time range must not exceed 24 hours.",
     458: "Capatcha is not verified.",
     459: "recaptcha is required.",
+    500: "Internal Server Error.",
 }
 
 
