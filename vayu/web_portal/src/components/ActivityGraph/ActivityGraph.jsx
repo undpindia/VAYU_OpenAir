@@ -463,45 +463,33 @@ const ActivityGraph = ({ data }) => {
     return new Date(date).toLocaleDateString('en-GB', options);
   };
 
-  const isLeapYear = (year) => {
-    return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
-  };
+  // const isLeapYear = (year) => {
+  //   return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+  // };
 
   const getStartAndEndDates = (data) => {
-    const months = {
-      January: 31,
-      February: 28, // Default days for February, will adjust for leap years
-      March: 31,
-      April: 30,
-      May: 31,
-      June: 30,
-      July: 31,
-      August: 31,
-      September: 30,
-      October: 31,
-      November: 30,
-      December: 31,
-    };
-
     let startDate = null;
     let endDate = null;
 
     data.forEach((yearData) => {
-      const { year, data: monthsData } = yearData;
+      const { data: monthsData } = yearData;
 
-      // Adjust February for leap years
-      if (isLeapYear(year)) {
-        months['February'] = 29;
-      } else {
-        months['February'] = 28;
-      }
+      Object.keys(monthsData).forEach((month) => {
+        const dates = monthsData[month].map((entry) => entry.date);
 
-      Object.keys(monthsData).forEach((month, index) => {
-        if (!startDate) {
-          startDate = `${year}-${String(index + 1).padStart(2, '0')}-01`;
-        }
-        const lastDay = months[month];
-        endDate = `${year}-${String(index + 1).padStart(2, '0')}-${lastDay}`;
+        // Update startDate if it's earlier than the current startDate
+        dates.forEach((date) => {
+          if (!startDate || new Date(date) < new Date(startDate)) {
+            startDate = date;
+          }
+        });
+
+        // Update endDate if it's later than the current endDate
+        dates.forEach((date) => {
+          if (!endDate || new Date(date) > new Date(endDate)) {
+            endDate = date;
+          }
+        });
       });
     });
 
@@ -509,6 +497,23 @@ const ActivityGraph = ({ data }) => {
   };
 
   const { startDate, endDate } = getStartAndEndDates(data);
+
+  const hasMoreThanThreeObjects = (data) => {
+    let totalObjects = 0;
+
+    // Iterate through each year entry
+    data.forEach((yearData) => {
+      const { data: monthsData } = yearData;
+
+      // Add the number of months (keys) to the total count
+      totalObjects += Object.keys(monthsData).length;
+    });
+
+    // Check if the total count exceeds 3
+    return totalObjects > 3;
+  };
+
+  const showScrollButtons = hasMoreThanThreeObjects(data);
 
   return (
     <Fragment>
@@ -518,17 +523,23 @@ const ActivityGraph = ({ data }) => {
         </p>
       </div>
 
-      <div className="flex items-center space-x-2">
-        <Button
-          onClick={scrollLeft}
-          disabled={isAtStart}
-          className={`bg-[#2D8643] text-white p-3 w-11 h-11 rounded-full transform -translate-y-1/2 focus:outline-none hover:bg-[#61B068] ${
-            isAtStart ? 'opacity-50 cursor-not-allowed' : ''
-          }`}
-          style={{ position: 'sticky', left: 0 }}
-        >
-          <ArrowLeft size={20} />
-        </Button>
+      <div
+        className={`flex items-center space-x-2 ${
+          showScrollButtons ? 'justify-start' : 'justify-center'
+        }`}
+      >
+        {showScrollButtons && (
+          <Button
+            onClick={scrollLeft}
+            disabled={isAtStart}
+            className={`bg-[#2D8643] text-white p-3 w-11 h-11 rounded-full transform -translate-y-1/2 focus:outline-none hover:bg-[#61B068] ${
+              isAtStart ? 'opacity-50 cursor-not-allowed' : ''
+            }`}
+            style={{ position: 'sticky', left: 0 }}
+          >
+            <ArrowLeft size={20} />
+          </Button>
+        )}
 
         <div
           className="flex justify-start items-center space-x-8 overflow-x-auto py-4 no-scrollbar"
@@ -588,16 +599,18 @@ const ActivityGraph = ({ data }) => {
           })}
         </div>
 
-        <Button
-          onClick={scrollRight}
-          disabled={isAtEnd}
-          className={`bg-[#2D8643] text-white p-3 w-11 h-11 rounded-full transform -translate-y-1/2 focus:outline-none hover:bg-[#61B068] ${
-            isAtEnd ? 'opacity-50 cursor-not-allowed' : ''
-          }`}
-          style={{ position: 'sticky', right: 0 }}
-        >
-          <ArrowRight size={20} />
-        </Button>
+        {showScrollButtons && (
+          <Button
+            onClick={scrollRight}
+            disabled={isAtEnd}
+            className={`bg-[#2D8643] text-white p-3 w-11 h-11 rounded-full transform -translate-y-1/2 focus:outline-none hover:bg-[#61B068] ${
+              isAtEnd ? 'opacity-50 cursor-not-allowed' : ''
+            }`}
+            style={{ position: 'sticky', right: 0 }}
+          >
+            <ArrowRight size={20} />
+          </Button>
+        )}
       </div>
     </Fragment>
   );
