@@ -1,5 +1,10 @@
 from django.db import models
 
+from PIL import Image
+from io import BytesIO
+
+from django.core.files.base import ContentFile
+
 from user.models import User
 from sensor.models import Data
 
@@ -95,6 +100,26 @@ class FileUpload(models.Model):
     file  = models.FileField(upload_to='file_upload/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    
+    def save(self, *args, **kwargs):
+        # Optimize the image before saving
+        if self.file:
+            # Open the uploaded image
+            img = Image.open(self.file)
+            img_format = img.format  # Retain the original format (e.g., JPEG, PNG)
+            
+            # Resize the image if necessary (e.g., max width/height of 800px)
+            max_size = (800, 800)
+            img.thumbnail(max_size, Image.ANTIALIAS)
+            
+            # Save the image to an in-memory file
+            img_io = BytesIO()
+            img.save(img_io, format=img_format, optimize=True, quality=85)
+            
+            # Replace the uploaded image with the optimized one
+            self.file = ContentFile(img_io.getvalue(), self.file.name)
+
+        super().save(*args, **kwargs)
     
     def __str__(self):
         return str(self.id) + " | " + str(self.user_id.full_name) + " | " + str(self.record_id)
