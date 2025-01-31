@@ -5,7 +5,7 @@ import daLogo from '../../../assets/images/partners/da.svg';
 import gmdaLogo from '../../../assets/images/partners/gmda.svg';
 import lacunaLogo from '../../../assets/images/partners/lacuna.svg';
 import misteoLogo from '../../../assets/images/partners/misteo.svg';
-import nottinghamLogo from '../../../assets/images/partners/nottingham.svg';
+import seedsLogo from '../../../assets/images/partners/seeds.svg';
 import undpLogo from '../../../assets/images/partners/undp.svg';
 
 const OurPartners = () => {
@@ -43,7 +43,7 @@ const OurPartners = () => {
     {
       id: 7,
       name: 'Nottingham',
-      logo: nottinghamLogo,
+      logo: seedsLogo,
     },
 
     {
