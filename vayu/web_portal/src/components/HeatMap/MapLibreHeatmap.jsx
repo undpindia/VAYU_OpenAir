@@ -163,7 +163,7 @@ export default function MapLibreHeatmap({
       id: 4,
       label: 'CO2',
       value: recordCaptured.co2 === null ? 'N/A' : recordCaptured.co2,
-      unit: 'ppb',
+      unit: 'ppm',
       icon: <img src={Images.Co2} />,
       isData: recordCaptured.co2 ? true : false,
     },

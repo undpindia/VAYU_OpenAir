@@ -41,9 +41,9 @@ const pollutants = [
   {
     key: 'co2',
     data: 'CO2',
-    long_desc: 'Carbon Dioxide (ppb)',
+    long_desc: 'Carbon Dioxide (ppm)',
     icon: Co2Icon,
-    unit: 'ppb',
+    unit: 'ppm',
   },
   {
     key: 'ch4',
