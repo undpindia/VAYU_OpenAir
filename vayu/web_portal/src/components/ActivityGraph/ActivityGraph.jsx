@@ -210,7 +210,7 @@ const ActivityGraph = ({ data }) => {
                 >
                   <div className="w-[300px] h-[300px] flex flex-col justify-between">
                     <CalendarHeatmap
-                      startDate={startDate}
+                      startDate={startDate - 1}
                       endDate={endDate}
                       values={monthData}
                       onClick={(value) => console.log(value)}
