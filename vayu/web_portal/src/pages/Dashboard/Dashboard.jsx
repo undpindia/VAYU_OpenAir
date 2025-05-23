@@ -55,6 +55,7 @@ import Close from '../../assets/images/icons/close.svg';
 import image from '../../assets/images/common/image-popup.png';
 import Undp from '../../assets/images/partners/undp.svg';
 import Vayu from '../../assets/images/partners/vayu-white.svg';
+import Link from '../../assets/images/icons/external-link.svg'
 
 const Dashboard = ({ setIsInitailDialogBoxOpen, isInitailDialogBoxOpen }) => {
   const isInitialLoad = useRef(true);
@@ -338,6 +339,7 @@ const Dashboard = ({ setIsInitailDialogBoxOpen, isInitailDialogBoxOpen }) => {
     }
   });
   const [isDownloadOpen, setIsDownloadOpen] = useState(false);
+  const [isLiveMonitoringOpen, setIsLiveMonitoringOpen] = useState(false);
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -404,6 +406,10 @@ const Dashboard = ({ setIsInitailDialogBoxOpen, isInitailDialogBoxOpen }) => {
     setIsDownloadOpen(Open);
   };
 
+  const handleLiveMonitoringOpen = (Open) => {
+    setIsLiveMonitoringOpen(Open);
+  };
+  
   const handleMarkerClick = (point) => {
     // console.log('Marker clicked in Dashboard:', point.device_id);
     setIsSensorClose(false);
@@ -937,7 +943,57 @@ const Dashboard = ({ setIsInitailDialogBoxOpen, isInitailDialogBoxOpen }) => {
         )}
       </div>
 
-      <div className="flex justify-end gap-2">
+      <div className="flex justify-between gap-1">
+        <Dialog open={isLiveMonitoringOpen} onOpenChange={handleLiveMonitoringOpen}>
+          <DialogTrigger asChild>
+            <Button
+              className="text-[20px] font-normal"
+              onClick={() => setIsLiveMonitoringOpen(true)}
+            >
+            Use case dashboards
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="w-4/5 max-w-[auto] rounded-md border-none sm:max-w-[425px] p-6">
+            <DialogHeader>
+              <DialogTitle>
+                <h1 className="font-[500] text-[24px] leading-[28px] text-[#11263C]">
+                Use case dashboards
+                </h1>
+              </DialogTitle>
+              <DialogDescription>
+                <span className="text-[16px] font-normal">
+                 Explore the various dashboards showcasing hyperlocal air quality use cases developed as part of the project.
+                </span>
+              </DialogDescription>
+            </DialogHeader>
+             <div className="w-full space-y-4">
+                <div className="flex flex-row gap-2 flex-wrap">
+                  <Button className="whitespace-nowrap">
+                    <div className="flex items-center gap-1">
+                     <a href="https://vayu.undp.org.in/usecase/live_man.html" target="_blank" className="text-white-500 hover:none whitespace-nowrap">Live air quality monitoring</a> <img src={Link}className="h-4 w-auto" alt="logo-link" />
+                    </div>
+                  </Button>
+                   <Button className="whitespace-nowrap">
+                    <div className="flex items-center gap-1">
+                  <a href="https://vayu.undp.org.in/usecase/live_man_traffic.html"  target="_blank" className="text-white-500 hover:none whitespace-nowrap">Live air quality monitoring  - Traffic</a><img src={Link}className="h-4 w-auto" alt="logo-link" />
+                  </div>
+                  </Button>
+                  <Button className="whitespace-nowrap">
+                    <div className="flex items-center gap-1">
+                    <a href="https://vayu.undp.org.in/usecase/trend.htm"  target="_blank" className="text-white-500 hover:none whitespace-nowrap">Air quality trend</a><img src={Link}className="h-4 w-auto" alt="logo-link" />
+                   </div>
+                   </Button>
+                   <Button className="whitespace-nowrap"> 
+                    <div className="flex items-center gap-1">
+                    <a href="https://vayu.undp.org.in/usecase/trend_with_traffic.htm"  target="_blank" className="text-white-500 hover:none whitespace-nowrap">Air quality trend - Traffic</a><img src={Link}className="h-4 w-auto" alt="logo-link" />
+                   </div>
+                   </Button>
+                   
+                </div>
+                </div>
+
+          </DialogContent>
+        </Dialog>
         <Dialog open={isDownloadOpen} onOpenChange={handleDialogOpenChange}>
           <DialogTrigger asChild>
             <Button
